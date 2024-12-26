@@ -15,7 +15,6 @@ Follow the steps below to set up the virtual environment and install dependencie
 If you haven’t cloned the repository yet, run:
 
 '''bash
-    #Clone command
     git clone https://github.com/Samue1eun/RedzoneGetaway.git
 
 
