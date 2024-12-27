@@ -16,7 +16,7 @@ If you haven’t cloned the repository yet, run:
 
 '''bash
     git clone https://github.com/Samue1eun/RedzoneGetaway.git
-
+'''
 
 ### 2. Create a Virtual Environment
 
@@ -24,12 +24,14 @@ With the repository cloned, make sure to run "deactivate" if you have any active
 
 #### For macOS/Linux
 '''bash
-    python3 -m venv <venv_name>
+    python3 -m venv redzone_venv
+'''
 
 
 #### For Windows
 '''bash
-    python -m venv <venv_name>
+    python -m venv redzone_venv
+'''
 
 
 This will create the new venv directory in the project folder. 
@@ -40,6 +42,7 @@ Now before making a single commit, run the following command to make a .gitignor
 
 '''bash
     touch .gitignore
+'''
 
 
 Open the .gitignore file and add the following:
@@ -51,22 +54,19 @@ Open the .gitignore file and add the following:
     # Ignore Python cache files
     __pycache__/
     *.pyc
-
-
-
+'''
 
 Getting started with this project, first-things-first make a ".gitignore" file and copy and paste the following code block.
 
 '''bash
 
     # Ignore the virtual environment directory
-    <venv_name>/
+    redzone_venv/
 
     # Ignore Python cache files
     __pycache__/
     *.pyc
-
-
+'''
 
 This will ensure you are not uploading any unwanted files. 
 
@@ -75,19 +75,20 @@ This will ensure you are not uploading any unwanted files.
 #### For macOS/Linux
 
 '''bash
-    source <venv_name>/bin/activate
-
+    source redzone_venv/bin/activate
+'''
 
 #### For Windows (Command Prompt)
 '''bash
-    .\<venv_name>\Scripts\activate
+    .\redzone_venv\Scripts\activate
+'''
 
 #### For Windows (PowerShell)
 '''bash
-    .\<venv_name>\Scripts\Activate.ps1
+    .\redzone_venv\Scripts\Activate.ps1
+'''
 
-
-Verify that the virtual environment has been activated. You should see (<venv_name>) appear in your terminal, indicating that the virtual environment is active. 
+Verify that the virtual environment has been activated. You should see (redzone_venv) appear in your terminal, indicating that the virtual environment is active. 
 
 ### 5. Install Dependencies
 
@@ -95,7 +96,7 @@ Now that your virtual environment is active, install the required dependencies u
 
 '''bash
     pip install -r requirements.txt
-
+'''
 
 This will install all the packages listed in requirements.txt.
 
@@ -105,7 +106,7 @@ To verify that the packages were installed correctly, you can run:
 
 '''bash
     pip list
-
+'''
 
 This will show a list of the installed packages in your virtual environment. If everything is successful then your good to start working, ensure that every time you make a pull request you redo steps 5 and 6 to ensure that you are up-to-date on all the current working dependencies for the project.
 
@@ -119,6 +120,6 @@ Updating dependencies: If you add new dependencies or update existing ones, make
 
 '''bash
     pip freeze > requirements.txt
-
+'''
 
 HAPPY CODING!!!
