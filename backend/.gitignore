@@ -7,6 +7,3 @@ __pycache__/
  
 #Ignore .env file
 .env
-
-Im doing a group project and we are using postgresql, what are some recommended ways of 
-handling storing our data so everyone has access to it. 
