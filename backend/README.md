@@ -23,6 +23,7 @@ If you haven’t cloned the repository yet, run:
 With the repository cloned, make sure to run "deactivate" if you have any active virtual environment and run the following command to create the virtual environment.
 
 #### For macOS/Linux
+
 '''bash
     python3 -m venv redzone_venv
 '''
@@ -33,12 +34,12 @@ With the repository cloned, make sure to run "deactivate" if you have any active
     python -m venv redzone_venv
 '''
 
-
 This will create the new venv directory in the project folder. 
 
 ### 3. Create a .gitignore File
 
 Now before making a single commit, run the following command to make a .gitignore file to your directory.
+
 
 '''bash
     touch .gitignore
@@ -54,6 +55,7 @@ Open the .gitignore file and add the following:
     # Ignore Python cache files
     __pycache__/
     *.pyc
+
 '''
 
 Getting started with this project, first-things-first make a ".gitignore" file and copy and paste the following code block.
@@ -73,6 +75,7 @@ This will ensure you are not uploading any unwanted files.
 ### 4. Activate the Virtual Environment
 
 #### For macOS/Linux
+
 
 '''bash
     source redzone_venv/bin/activate
