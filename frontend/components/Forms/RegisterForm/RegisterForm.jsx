@@ -2,7 +2,8 @@
 const RegisterForm = () => {
     return (
         <>
-                    <div className="card glass w-96">
+            <div className="flex items-center justify-center min-h-screen">
+            <div className="card glass w-96">
             <div className="card-body">
                 <h2 className="card-title">Register</h2>
                 <label className="input input-bordered flex items-center gap-2">
@@ -48,7 +49,7 @@ const RegisterForm = () => {
                 </div>
             </div>
             </div>
-
+        </div>
         </>
     )
 };

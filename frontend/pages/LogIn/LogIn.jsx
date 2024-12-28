@@ -1,10 +1,10 @@
 import LogInForm from "../../components/Forms/LogInForm/LogInForm";
-import RegisterForm from "../../components/Forms/RegisterForm/RegisterForm";
 
 
-const LogInRegister = () => {
+const LogIn = () => {
   return (
     <div>
+        <h1 className="text-center">Red Zone Getaway</h1>
         <div>
             <LogInForm />
         </div>
@@ -12,4 +12,4 @@ const LogInRegister = () => {
   );
 }
 
-export default LogInRegister;
+export default LogIn;
