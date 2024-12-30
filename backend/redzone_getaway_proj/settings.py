@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.simplejwt',
     'user_app',
 ]
 
@@ -51,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
 ]
 
 ROOT_URLCONF = 'redzone_getaway_proj.urls'
@@ -77,7 +81,7 @@ WSGI_APPLICATION = 'redzone_getaway_proj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
+DATABASES = { #needs to be updated
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env.get("DB_NAME"),
@@ -88,6 +92,17 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+from datetime import timedelta
+SIMPLE_JWT = { #can be adjusted            pip install djangorestframework-simplejwt
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), #JWT Authentication with 5-minute access tokens
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # JWT 1 day refresh tokens
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -129,3 +144,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ORIGIN_ALLOW_ALL = True #Allows all origins(domains) to access your API
+CORS_ALLOW_CREDENTIALS = True #Allows cookies to be included in cross-origin requests
+
+AUTH_USER_MODEL = 'user_app.User' #Tells django project to utilize the user model
