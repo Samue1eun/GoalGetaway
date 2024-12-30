@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.core import validators as valid
+from django.core import validators as v
 from .validators import validate_email
 
 # Create your models here.
