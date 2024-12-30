@@ -1,7 +1,29 @@
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const RegisterForm = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleRegisterSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8000/api/token/', {
+                username,
+                password,
+            });
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+            alert('Login successful');
+        } catch (error) {
+            console.error('There was an error logging in!', error);
+        }
+    };
+    
     return (
         <>
+        <form onSubmit={handleRegisterSubmit}>
             <div className="flex items-center justify-center min-h-screen">
             <div className="card glass w-96">
             <div className="card-body">
@@ -50,6 +72,7 @@ const RegisterForm = () => {
             </div>
             </div>
         </div>
+        </form>
         </>
     )
 };
