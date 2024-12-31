@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from dotenv import dotenv_values
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,6 +24,9 @@ env = dotenv_values(".env")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.get("DJANGO_KEY")
+GOOGLE_PLACES_KEY = config('GOOGLE_PLACES_KEY')
+SPORTS_DATA_KEY = config('SPORTS_DATA_KEY')
+GAME_STATS_KEY = config('GAME_STATS_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'user_app',
     'game_app',
+    'api_app',
 ]
 
 MIDDLEWARE = [
