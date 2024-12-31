@@ -26,8 +26,9 @@ class SingleGame(APIView):
         if type(game_identifier) == int:
             game = get_object_or_404(Game, id=game_identifier)
         elif type(game_identifier) == str:
-            game = get_object_or_404(Game, game_name=game_identifier)
-        return game
+            game = get_object_or_404(Game, game_name=game_identifier)#the str search is not working as intended with 
+            return game                                              #game_name but this can be modified after finalizing the models
+        
             
     def get(self, request, game_identifier):
         return Response(GameSerializer(self.get_game(game_identifier)).data)
