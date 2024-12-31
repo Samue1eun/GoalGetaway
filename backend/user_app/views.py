@@ -5,8 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
 
-class sign_up(APIView):
+class SignUp(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -18,7 +19,7 @@ class sign_up(APIView):
             }, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-class log_in(APIView):
+class LogIn(APIView):
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
@@ -31,7 +32,7 @@ class log_in(APIView):
             }, status=HTTP_200_OK)
         return Response({'error': 'Invalid credentials'}, status=HTTP_400_BAD_REQUEST)
 
-class log_out(APIView):
+class LogOut(APIView):
     def post(self, request):
         try:
             refresh_token = request.data["refresh"]
@@ -40,3 +41,10 @@ class log_out(APIView):
             return Response(status=HTTP_200_OK)
         except Exception:
             return Response(status=HTTP_400_BAD_REQUEST)
+        
+class Info(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data, status=HTTP_200_OK)
