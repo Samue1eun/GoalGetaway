@@ -23,4 +23,5 @@ urlpatterns = [
     path('api/v1/games/', include('game_app.urls')),
     path('api/v1/events/', include('event_app.urls')),
     path('api/v1/locations/', include('location_app.urls')),
+    path('api/v1/teams/', include('team_app.urls')),
 ]

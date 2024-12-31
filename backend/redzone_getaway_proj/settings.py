@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'game_app',
     'event_app',
     'location_app',
-    
+    'team_app',
 ]
 
 MIDDLEWARE = [
