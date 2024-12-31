@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Game
-from .serializers import GameSerializer
-
+from .models import Event
+from .serializers import EventSerializer
 # Create your views here.
-class AllGames(APIView):
+
+class AllEvents(APIView):
     
     def get(self, request):
-        return Response(GameSerializer(Game.objects.all().order_by('game_name'), many=True).data)
+        return Response(EventSerializer(Event.objects.all().order_by('event_name')).data)
