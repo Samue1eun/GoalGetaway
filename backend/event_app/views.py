@@ -8,4 +8,4 @@ from .serializers import EventSerializer
 class AllEvents(APIView):
     
     def get(self, request):
-        return Response(EventSerializer(Event.objects.all().order_by('event_name')).data)
+        return Response(EventSerializer(Event.objects.all().order_by('event_name'), many=True).data)
