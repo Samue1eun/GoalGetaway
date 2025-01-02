@@ -30,7 +30,7 @@ export const userSignup = async(formData) => {
       api.defaults.headers.common['Authorization'] = `Token ${token}`
       return {'id' : id, 'username': username, 'email' : email}
     }
-  }catch (error){
+  } catch (error){
     console.error('Error in "userSignup" function. check utilities.jsx:', error.message)
   }
   
@@ -57,7 +57,7 @@ export const userLogin = async(formData) => {
       api.defaults.headers.common['Authorization'] = `Token ${token}`
       return {'id' : id, 'username': username, 'email' : email}
     }
-  }catch (error){
+  } catch (error){
     console.error('Error in "userLogin" function. check utilities.jsx:', error.message)
   }
 }
