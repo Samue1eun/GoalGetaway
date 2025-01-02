@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
 
 class SignUp(APIView):
@@ -24,10 +25,14 @@ class SignUp(APIView):
         return Response(UserSerializer(User.objects.all(), many=True).data, status=HTTP_200_OK)
 
 class LogIn(APIView):
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
+        print(email, password)
         user = authenticate(email=email, password=password)
+        print(user)
         if user:
             refresh = RefreshToken.for_user(user)
             return Response({

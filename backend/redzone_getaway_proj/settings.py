@@ -109,7 +109,7 @@ REST_FRAMEWORK = {
 from datetime import timedelta
 SIMPLE_JWT = { #can be adjusted            pip install djangorestframework-simplejwt
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), #JWT Authentication with 5-minute access tokens
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # JWT 1 day refresh tokens
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=1), # JWT 1 day refresh tokens
 }
 
 # Password validation

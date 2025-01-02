@@ -6,18 +6,40 @@ const LogInForm = () => {
 
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("")
-    const [userName, setUserName] = useState("")
+    const [email, setEmail] = useState("")
     const navigate = useNavigate()
 
-    const handleSubmit = async(e) => {
-        e.preventDefault()
-        let formData ={
-          'password': password,
-          'userName': userName
+    const handleLogInSubmit = async (e) => {
+        e.preventDefault();
+        let formData = {
+            'email': email,
+            'password': password,
+        };
+        try {
+            const user = await userLogin(formData);
+            console.log('Login successful:', user);
+            navigate('/'); // Redirect to the homepage upon successful login
+        } catch (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error('There was an error logging in!', error.response.data);
+                alert('Login failed: ' + JSON.stringify(error.response.data));
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error('No response received:', error.request);
+                alert('Login failed: No response from server');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error('Error', error.message);
+                alert('Login failed: ' + error.message);
+            }
         }
-        setUser(await userLogin(formData));
-        navigate('/')
-      } 
+    };
+
+      const handleRegisterClick = () => {
+        navigate('/register')
+      }
 
     return (
         <>
@@ -51,9 +73,9 @@ const LogInForm = () => {
                 <input 
                     type="text" 
                     className="grow" 
-                    placeholder="Username"
-                    value={userName}
-                    onChange = {(e)=>setUserName(e.target.value)}
+                    placeholder="Email"
+                    value={email}
+                    onChange = {(e)=>setEmail(e.target.value)}
                     />
                 </label>
                 <label className="input input-bordered flex items-center gap-2">
@@ -76,8 +98,8 @@ const LogInForm = () => {
                     />
                 </label>
                     <div className="card-actions justify-end">
-                    <button className="btn btn-primary" type="submit">Log In</button>
-                    <button className="btn btn-primary">Register</button>
+                    <button className="btn btn-primary" type="submit" onClick={handleLogInSubmit}>Log In</button>
+                    <button className="btn btn-primary" onClick={handleRegisterClick}>Go To Register Page</button>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ const RegisterForm = () => {
   const [userName, setUserName] = useState("")
   const navigate = useNavigate()
 
-  const handleSubmit = async(e) => {
+  const handleRegisterClick = async(e) => {
     e.preventDefault()
     let formData ={
       'email' : email,
@@ -19,7 +19,13 @@ const RegisterForm = () => {
     }
     setUser(await userSignup(formData)) 
     navigate('/')
-  } 
+  }
+
+  const handleLogInClick = () => {
+    navigate('/login')
+  }
+
+
 
   return (
     <>
@@ -84,8 +90,8 @@ const RegisterForm = () => {
                 />
               </label>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">Log In</button>
-                <button className="btn btn-primary" type="submit" >Register</button>
+                <button className="btn btn-primary" onClick={handleLogInClick}>Go To Log In Page</button>
+                <button className="btn btn-primary" onClick={handleRegisterClick} >Register</button>
               </div>
             </div>
           </div>
