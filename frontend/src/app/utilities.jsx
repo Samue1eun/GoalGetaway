@@ -12,6 +12,7 @@ export const api = axios.create({
 
 export const userSignup = async(formData) => {
   const { email, password, userName } = formData
+  console.log(formData)
 
   let response = await api.post(
     'users/signup/',
