@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
 
 class SignUp(APIView):
     def post(self, request):
@@ -18,6 +19,9 @@ class SignUp(APIView):
                 'access': str(refresh.access_token),
             }, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    
+    def get(self, request):
+        return Response(UserSerializer(User.objects.all(), many=True).data, status=HTTP_200_OK)
 
 class LogIn(APIView):
     def post(self, request):
