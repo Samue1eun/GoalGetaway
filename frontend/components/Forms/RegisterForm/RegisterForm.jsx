@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { userSignup } from "../../../src/app/utilities";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
 
-  const [ user, setUser ] = useState("");
+  const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
   const [userName, setUserName] = useState("")
+  const navigate = useNavigate()
 
   const handleSubmit = async(e) => {
     e.preventDefault()
@@ -16,7 +18,7 @@ const RegisterForm = () => {
       'userName': userName
     }
     setUser(await userSignup(formData)) 
-    // navigate('/') add this for rerouting automatically to the homepage
+    navigate('/')
   } 
 
   return (
