@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'team_app',
     'api_app',
     'hotel_app',
+    'flight_app',
 ]
 
 MIDDLEWARE = [
