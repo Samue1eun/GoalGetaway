@@ -11,7 +11,7 @@ export const api = axios.create({
 ///////////////////////-----SIGN UP------------///////////////////////
 
 export const userSignup = async(formData) => {
-  const { email, password, userName } = formData
+  const { email, password, displayName } = formData
   console.log(formData)
 
   let response = await api.post(
@@ -19,16 +19,16 @@ export const userSignup = async(formData) => {
     {
       email : email,
       password : password,
-      username : userName
+      display_name : displayName
     }
   )
 
   try{
     if (response.status === 201){
-      let {token, username, id, email} = response.data 
+      let {token, display_name, id, email} = response.data 
       localStorage.setItem('token', token)
       api.defaults.headers.common['Authorization'] = `Token ${token}`
-      return {'id' : id, 'username': username, 'email' : email}
+      return {'id' : id, 'displayName': display_name, 'email' : email}
     }
   } catch (error){
     console.error('Error in "userSignup" function. check utilities.jsx:', error.message)
@@ -39,11 +39,11 @@ export const userSignup = async(formData) => {
 ///////////////////////-----LOG IN-------------///////////////////////
 
 export const userLogin = async(formData) => {
-  const {email, password} = formData
-
+  const { email, password } = formData
+  console.log(formData)
   try {
       let response = await api.post(
-          "user_app/login/",  // Update endpoint
+          "users/login/",  
           {
               email: email,
               password: password
@@ -51,41 +51,28 @@ export const userLogin = async(formData) => {
       )
 
       if (response.status === 200) {
-          localStorage.setItem('access_token', response.data.access)
-          localStorage.setItem('refresh_token', response.data.refresh)
-          api.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`
-          return response.data
+        localStorage.setItem('token', token)
+        api.defaults.headers.common['Authorization'] = `Token ${token}`
+        return response.data
       }
   } catch (error) {
-      console.error('Error in "userLogin" function:', error.response?.data || error.message)
+      console.error('Error in "userLogin" function:', error.message)
   }
 }
-
 
 ///////////////////////-----LOG OUT------------///////////////////////
 
 export const logOut = async() => {
   try {
-      const refresh_token = localStorage.getItem('refresh_token');
-      let response = await api.post('user_app/logout/', {
-          refresh: refresh_token
-      });
-
-      if (response.status === 200) {
-          // Clear ALL storage
-          localStorage.clear();  // More thorough than just removing specific items
-          delete api.defaults.headers.common['Authorization'];
-          return true;
-      }
+    if (response.status === 204){
+      localStorage.removeItem('token')
+      delete api.defaults.headers.common['Authorization']
+      return null
+    }
   } catch (error) {
-      // Even if the request fails, clear the tokens
-      localStorage.clear();
-      delete api.defaults.headers.common['Authorization'];
-      console.error('Error in "userLogout" function:', error.response?.data || error.message);
-      return false;
+    console.error('Error in "userLogout" function:', error.message);
   }
 }
-
 
 ///////////////////////-----INFO---------------///////////////////////
 
@@ -98,10 +85,10 @@ export const getInfo = async() => {
       api.defaults.headers.common['Authorization'] = `Token ${token}`
       let response = await api.get('users/info/')
       if (response.status === 200){
-        return {'id' : id, 'username': username, 'email' : email}
+        return {'id' : id, 'displayName': display_name, 'email' : email}
       }
       else{
-          return null
+        return null
       }
     }
   }catch (error){
