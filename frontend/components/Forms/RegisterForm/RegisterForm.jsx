@@ -10,19 +10,26 @@ const RegisterForm = () => {
   const [displayName, setDisplayName] = useState("")
   const navigate = useNavigate()
 
-  const handleRegisterClick = async(e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
     let formData ={
       'email' : email,
       'password': password,
       'displayName': displayName
     }
-    setUser(await userSignup(formData)) 
-    navigate('/')
+    try {
+      const user = await userSignup(formData);
+      if (user){ 
+        setUser(user)
+        navigate('/'); // Redirect to the homepage upon successful login
+      }
+    }catch (error) {
+      console.error('Error in "RegisterFrom.jsx": ', error.message);
+    }
   }
 
   const handleLogInClick = () => {
-    navigate('/login')
+    navigate('/login/')
   }
 
 
@@ -90,8 +97,8 @@ const RegisterForm = () => {
                 />
               </label>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary" onClick={handleLogInClick}>Go To Log In Page</button>
-                <button className="btn btn-primary" onClick={handleRegisterClick} >Register</button>
+                <button className="btn btn-primary" type="button" onClick={handleLogInClick}>Go To Log In Page</button>
+                <button className="btn btn-primary" type="submit" >Register</button>
               </div>
             </div>
           </div>
