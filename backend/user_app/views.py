@@ -61,5 +61,19 @@ class Info(TokenReq):
 class LogOut(TokenReq):
     
     def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=HTTP_200_OK)
+        except Exception:
+            return Response(status=HTTP_400_BAD_REQUEST)
+        
+class Info(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data, status=HTTP_200_OK)
         request.user.auth_token.delete()
         return Response(status=HTTP_204_NO_CONTENT)
