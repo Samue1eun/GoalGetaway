@@ -70,4 +70,23 @@ class GameTodayView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
+class NFLTeamView(APIView):
+    def get(self, request):
+        API_KEY = settings.SPORTS_DATA_KEY
+        api_url = "https://api.sportsdata.io/v3/nfl/scores/json/Teams"
 
+        headers = {
+            "Ocp-Apim-Subscription-Key": API_KEY,
+        }
+
+        response = requests.get(api_url, headers=headers)
+
+        if response.status_code == 200:
+            teams_data = response.json()
+
+            return JsonResponse(teams_data, safe=False)
+        else:
+            return JsonResponse(
+                {"error": "Failed to fetch data from SportsData API", "status_code": response.status_code},
+                status=response.status_code
+            )
