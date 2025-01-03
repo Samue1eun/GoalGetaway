@@ -37,3 +37,37 @@ class CityPlacesView(APIView):
         nearby_response = requests.get(url, params=nearby_params)
         nearby_data = nearby_response.json()
         return JsonResponse(nearby_data, status=status.HTTP_200_OK)
+    
+class GameTodayView(APIView):
+
+    # endpoint to get game on a specific day must look like: 
+    # http://127.0.0.1:8000/api/v1/api_app/today_games/?dates[]=2024-12-29&dates[]=2024-12-30
+
+    def get(self, request):
+        API_KEY = settings.GAME_STATS_KEY
+        dates = request.GET.getlist("dates[]")
+
+        if not dates:
+            return JsonResponse(
+                {"error": "Please provide at least one date in the 'dates[]' parameter."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        
+        query_params = "&".join([f"dates[]={date}" for date in dates])
+
+        url = f"https://api.balldontlie.io/nfl/v1/games?{query_params}"
+
+        try:
+            response = requests.get(
+                url,
+                headers={"Authorization": API_KEY}
+            )
+            response.raise_for_status()
+            return JsonResponse(response.json(), safe=False, status=response.status_code)
+        except requests.RequestException as e:
+            return JsonResponse(
+                {"error": "An error occurred while fetching games.", "details": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+

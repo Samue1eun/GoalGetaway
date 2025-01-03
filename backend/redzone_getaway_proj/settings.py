@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework',
+    'rest_framework.authtoken',
     'user_app',
     'game_app',
     'event_app',
@@ -109,7 +110,7 @@ REST_FRAMEWORK = {
 from datetime import timedelta
 SIMPLE_JWT = { #can be adjusted            pip install djangorestframework-simplejwt
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), #JWT Authentication with 5-minute access tokens
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # JWT 1 day refresh tokens
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=1), # JWT 1 day refresh tokens
 }
 
 # Password validation
