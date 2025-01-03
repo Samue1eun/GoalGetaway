@@ -4,9 +4,10 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from .models import Flight
 from .serializers import FlightSerializer
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
-
 class AllFlights(APIView):
+  permission_classes = [IsAuthenticated]
     
   def get(self, request):
     return Response(FlightSerializer(Flight.objects.all().order_by('in_date'), many=True).data)

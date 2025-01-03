@@ -4,9 +4,11 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from .models import Event
 from .serializers import EventSerializer
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 class AllEvents(APIView):
+  permission_classes = [IsAuthenticated]
     
   def get(self, request):
     return Response(EventSerializer(Event.objects.all().order_by('name'), many=True).data)

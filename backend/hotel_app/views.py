@@ -4,9 +4,11 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from .models import Hotel
 from .serializers import HotelSerializer
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class AllHotels(APIView):
+  permission_classes = [IsAuthenticated]
     
   def get(self, request):
     return Response(HotelSerializer(Hotel.objects.all().order_by('name'), many=True).data)
@@ -22,6 +24,7 @@ class AllHotels(APIView):
     return Response(new_hotel.errors, status=HTTP_400_BAD_REQUEST)
   
 class SingleHotel(APIView):
+  
   
   def get_hotel(self, hotel_identifier):
     if type(hotel_identifier) == int:

@@ -3,7 +3,7 @@ from .models import Flight
 
 class FlightSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Event
+    model = Flight
     fields = [ 
               'id', 
               'in_date', 

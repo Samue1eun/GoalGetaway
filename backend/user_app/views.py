@@ -52,11 +52,7 @@ class LogIn(APIView):
 class Info(TokenReq):
     
     def get(self, request):
-        return Response({
-            'display_name':request.user.display_name, 
-            'id': request.user.id, 
-            'email': request.user.email
-        })
+        return Response(UserSerializer(User.objects.get(id=request.user.id)).data)
     
 class LogOut(TokenReq):
     
