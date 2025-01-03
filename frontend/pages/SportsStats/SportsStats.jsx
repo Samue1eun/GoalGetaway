@@ -6,3 +6,5 @@ const SportsStats = () => {
         </>
     )
 }
+
+export default SportsStats;

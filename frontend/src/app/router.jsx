@@ -7,6 +7,7 @@ import MyFavoriteTeam from '../../pages/MyFavoriteTeam/MyFavoriteTeam'
 import MyTrips from '../../pages/MyTrips/MyTrips'
 import PlanTravel from '../../pages/PlanTravel/PlanTravel'
 import SportsNews from '../../pages/SportsNews/SportsNews'
+import SportsStats from '../../pages/SportsStats/SportsStats'
 import App from './App'
 
 
@@ -32,20 +33,24 @@ const router = createBrowserRouter([
                 element: <MyTrips />
             },
             {
-                path:'/myevents',
+                path:'/myevents/',
                 element: <MyEvents />
             },
             {
-                path:'/myfavoriteteam',
+                path:'/myfavoriteteam/',
                 element: <MyFavoriteTeam />
             },
             {
-                path: '/plantravel',
+                path: '/plantravel/',
                 element: <PlanTravel />
             },
             {
-                path: '/sportsnews',
+                path: '/sportsnews/',
                 element: <SportsNews />
+            },
+            {
+                path: '/sportsstats/',
+                element: <SportsStats />
             }
         ],
     },
