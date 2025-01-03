@@ -39,6 +39,10 @@ class SingleEvent(APIView):
     updated_event = self.get_event(event_identifier)
         
     updated_event.name = data["name"]
+    updated_event.date = data["date"]
+    updated_event.location = data["location"]
+    updated_event.game_of_the_day = data["game_of_the_day"]
+    updated_event.description = data["description"]
         
     updated_event.save()
         

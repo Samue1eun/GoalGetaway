@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'location_app',
     'team_app',
     'api_app',
+    'hotel_app',
 ]
 
 MIDDLEWARE = [
