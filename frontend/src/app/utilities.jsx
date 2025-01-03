@@ -51,9 +51,10 @@ export const userLogin = async(formData) => {
       )
 
       if (response.status === 200) {
+        let {token, display_name, email, id} = response.data
         localStorage.setItem('token', token)
         api.defaults.headers.common['Authorization'] = `Token ${token}`
-        return response.data
+        return {'id' : id, 'displayName': display_name, 'email' : email}
       }
   } catch (error) {
       console.error('Error in "userLogin" function:', error.message)
@@ -63,6 +64,7 @@ export const userLogin = async(formData) => {
 ///////////////////////-----LOG OUT------------///////////////////////
 
 export const logOut = async() => {
+  let response = await api.post('users/logout/')
   try {
     if (response.status === 204){
       localStorage.removeItem('token')

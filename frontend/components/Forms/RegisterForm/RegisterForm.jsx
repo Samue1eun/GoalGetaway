@@ -7,7 +7,7 @@ const RegisterForm = () => {
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
-  const [userName, setUserName] = useState("")
+  const [displayName, setDisplayName] = useState("")
   const navigate = useNavigate()
 
   const handleRegisterClick = async(e) => {
@@ -15,7 +15,7 @@ const RegisterForm = () => {
     let formData ={
       'email' : email,
       'password': password,
-      'userName': userName
+      'displayName': displayName
     }
     setUser(await userSignup(formData)) 
     navigate('/')
@@ -65,9 +65,9 @@ const RegisterForm = () => {
                 <input 
                   type="text" 
                   className="grow" 
-                  placeholder="Username"
-                  value={userName}
-                  onChange = {(e)=>setUserName(e.target.value)}
+                  placeholder="Display Name"
+                  value={displayName}
+                  onChange = {(e)=>setDisplayName(e.target.value)}
                 />
               </label>
               <label className="input input-bordered flex items-center gap-2">

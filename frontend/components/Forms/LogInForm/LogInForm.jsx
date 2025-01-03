@@ -17,8 +17,10 @@ const LogInForm = () => {
         };
         try {
             const user = await userLogin(formData);
-            console.log('Login successful:', user);
-            navigate('/'); // Redirect to the homepage upon successful login
+            if (user){ 
+                console.log('Login successful:', user);
+                navigate('/'); // Redirect to the homepage upon successful login
+            }
         } catch (error) {
             if (error.response) {
                 // The request was made and the server responded with a status code
