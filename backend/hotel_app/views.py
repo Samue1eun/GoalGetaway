@@ -16,6 +16,8 @@ class AllHotels(APIView):
   def post(self, request):
     data = request.data.copy()
     
+    data['user'] = request.user.id 
+    
     new_hotel = HotelSerializer(data=data)
     
     if new_hotel.is_valid():

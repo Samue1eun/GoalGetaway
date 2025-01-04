@@ -15,6 +15,8 @@ class AllFlights(APIView):
   def post(self, request):
     data = request.data.copy()
     
+    data['user'] = request.user.id 
+
     new_flight = FlightSerializer(data=data)
     
     if new_flight.is_valid():

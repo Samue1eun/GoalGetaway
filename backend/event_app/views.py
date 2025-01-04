@@ -16,6 +16,8 @@ class AllEvents(APIView):
   def post(self, request):
     data = request.data.copy()
     
+    data['user'] = request.user.id 
+    
     new_event = EventSerializer(data=data)
     
     if new_event.is_valid():
