@@ -18,14 +18,14 @@ const MyFavoriteTeam = () => {
                 <div className="w-full md:w-3/4 p-4 flex justify-center">
                     <TeamNews />
                 </div>
-                <div className="flex flex-col md:flex-row w-full md:w-3/4 justify-center">
+                <div className="w-full md:w-3/4 p-4 flex flex-wrap items-center justify-center gap-4">
                     {/* Left of the page */}
-                    <div className="md:w-1/4 p-4 flex flex-col items-center">
+                    <div className="flex flex-col items-center space-y-10">
                         <MostRecentScores />
                         <Schedule />
                     </div>
                     {/* Right of the page */}
-                    <div className="md:w-3/4 p-4 flex flex-col items-center">
+                    <div className="flex flex-col items-center space-y-10">
                         <TopPlayerStats />
                         <CurrentTeamStandings />
                     </div>
