@@ -8,17 +8,24 @@ import TeamNews from '../../components/Cards/Pages/MyFavoriteTeam/TeamNews';
 const MyFavoriteTeam = () => {
     return (
         <>
-            <h1>My Favorite Team</h1>
-            <div className="flex justify-center items-center">
-                <TeamNews />
+            <h1 className="text-center text-3xl font-bold my-4">My Favorite Team</h1>
+            <div className="flex flex-col items-center">
+                <div className="w-full md:w-3/4 p-4 flex justify-center">
+                    <TeamNews />
+                </div>
+                <div className="flex flex-col md:flex-row w-full md:w-3/4 justify-center">
+                    {/* Left of the page */}
+                    <div className="md:w-1/4 p-4 flex flex-col items-center">
+                        <MostRecentScores />
+                        <Schedule />
+                    </div>
+                    {/* Right of the page */}
+                    <div className="md:w-3/4 p-4 flex flex-col items-center">
+                        <TopPlayerStats />
+                        <CurrentTeamStandings />
+                    </div>
+                </div>
             </div>
-            <TopPlayerStats />
-            <CurrentTeamStandings />
-            <MostRecentScores />
-            <Schedule />
-
-
-        
         </>
     )
 }

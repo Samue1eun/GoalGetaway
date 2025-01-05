@@ -12,9 +12,9 @@ const TeamNews = () => {
           <div className="card-body items-center text-center">
             <h2 className="card-title">Team News</h2>
               <p>1. News</p>
-          <div className="card-actions">
+          {/* <div className="card-actions">
             <button className="btn btn-primary"></button>
-          </div>
+          </div> */}
           </div>
         </div>
 
