@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../src/app/utilities';
+import HomeNavBar from '../../components/NavBar/Home/HomeNavBar';
 
 
 const Home = () =>{
@@ -17,6 +18,9 @@ const Home = () =>{
     };
     return (
         <>
+            <div className="flex justify-center">
+                <HomeNavBar />
+            </div>
             <h1>Home</h1>
             <button onClick={handleSignOut}>Log out</button>
         </>

@@ -18,7 +18,7 @@ const MyFavoriteTeam = () => {
                 <div className="w-full md:w-3/4 p-4 flex justify-center">
                     <TeamNews />
                 </div>
-                <div className="w-full md:w-3/4 p-4 flex flex-wrap items-center justify-center gap-4">
+                <div className="w-full md:w-3/4 p-4 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
                     {/* Left of the page */}
                     <div className="flex flex-col items-center space-y-10">
                         <MostRecentScores />

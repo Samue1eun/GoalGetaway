@@ -21,7 +21,6 @@ const NFLStats = () => {
                 <div className="w-full p-4 flex justify-center">
                     <TopDefensivePlayers />
                 </div>
-
             </div>
         </>
     )
