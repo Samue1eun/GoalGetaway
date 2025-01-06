@@ -27,6 +27,7 @@ SECRET_KEY = env.get("DJANGO_KEY")
 GOOGLE_PLACES_KEY = config('GOOGLE_PLACES_KEY')
 SPORTS_DATA_KEY = config('SPORTS_DATA_KEY')
 GAME_STATS_KEY = config('GAME_STATS_KEY')
+BALL_DONT_LIE_ALLSTAR_KEY = env.get("BALL_DONT_LIE_ALLSTAR_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

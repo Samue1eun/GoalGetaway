@@ -95,3 +95,29 @@ class NFLTeamView(APIView):
                 {"error": "Failed to fetch data from SportsData API", "status_code": response.status_code},
                 status=response.status_code
             )
+
+class NFLTeamStandings(APIView):
+    
+    # Similar to the GameTodayView class the endpoint needs to be modified to 
+    # look like this: 
+    # http://127.0.0.1:8000/api/v1/api_app/team_standings/?season=2023
+    # the addition of "?season=" is already added for you in the code,
+    # simply make sure that when passing the request from the frontend 
+    # that you specify the season's year for example 2023 will encompass
+    # 2023-2024's season. 
+    
+    def get(self, request):
+        API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
+        season_year = request.GET.getlist("season")[0]
+        
+        url = f"https://api.balldontlie.io/nfl/v1/standings?season={season_year}"
+        try:
+            response = requests.get(
+                url,
+                headers={"Authorization": API_KEY}
+            )
+            if response.status_code == 200:
+                teams_data = response.json()
+                return JsonResponse(teams_data, safe=False)
+        except:
+            return JsonResponse("Error: ", response.status_code, safe=False)
