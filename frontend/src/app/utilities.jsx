@@ -1,6 +1,7 @@
 ///////////////////////-----IMPORTS------------///////////////////////
 
 import axios from 'axios'
+import { useState } from 'react'
 
 //////////////////////-----BASE URL------------///////////////////////
 
@@ -96,9 +97,22 @@ export const getInfo = async() => {
   }
 }
 
-///////////////////////-----SPORT DATA API-----///////////////////////
+///////////////////////-----TOP 5 QUARTERBACKS-----///////////////////////
 
-
+export const fetchTopQuarterbacks = async () => {
+  try {
+    const response = await api.get("top_stats/", {
+      params: {
+        season: 2024,
+        stat_requested: "passing_yards",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching players:", error);
+    return [];
+  }
+}
 
 ///////////////////////-----MAP API------------///////////////////////
 
