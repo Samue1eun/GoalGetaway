@@ -17,9 +17,6 @@ const TopOffensivePlayers = () => {
               <p>Player 3</p>
               <p>Player 4</p>
               <p>Player 5</p>
-          {/* <div className="card-actions">
-            <button className="btn btn-primary">Buy Now</button>
-          </div> */}
           </div>
         </div>
 

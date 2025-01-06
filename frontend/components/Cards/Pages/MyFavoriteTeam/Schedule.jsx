@@ -12,9 +12,6 @@ const Schedule = () => {
           <div className="card-body items-center text-center">
             <h2 className="card-title">Favorite Team Schedule</h2>
               <p>Team Schedule here</p>
-          {/* <div className="card-actions">
-            <button className="btn btn-primary">Buy Now</button>
-          </div> */}
           </div>
         </div>
 

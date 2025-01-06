@@ -14,9 +14,6 @@ const TeamNews = () => {
               <p>1. News</p>
               <p>2. News</p>
               <p>3. News</p>
-          {/* <div className="card-actions">
-            <button className="btn btn-primary"></button>
-          </div> */}
           </div>
         </div>
 

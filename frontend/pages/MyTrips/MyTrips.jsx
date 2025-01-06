@@ -10,9 +10,7 @@ const MyTrips = () => {
             <div className="flex justify-center">
                 <MyTripNavBar />
             </div>
-
             <h1 className="text-center text-3xl font-bold my-4">My Trips</h1>
-            <h1 className="text-center text-3xl font-bold my-4">NFL Statistics</h1>
             <div className="flex flex-col items-center">
                 <div className="w-full p-4 flex justify-center">
                     <TopLeaguePlayers />
@@ -23,8 +21,7 @@ const MyTrips = () => {
                 <div className="w-full p-4 flex justify-center">
                     <TopDefensivePlayers />
                 </div>
-            </div>
-        </>
+            </div>        </>
     )
 }
 
