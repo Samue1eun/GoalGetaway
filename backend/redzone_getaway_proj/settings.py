@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'location_app',
     'team_app',
     'api_app',
+    'hotel_app',
+    'flight_app',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +105,7 @@ DATABASES = { #needs to be updated
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
 

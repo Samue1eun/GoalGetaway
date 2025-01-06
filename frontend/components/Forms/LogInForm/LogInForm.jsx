@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 const LogInForm = () => {
 
-    const [user, setUser] = useState("");
-    const [password, setPassword] = useState("")
-    const [email, setEmail] = useState("")
-    const navigate = useNavigate()
+    const [user, setUser] = useState(null);
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const navigate = useNavigate();
 
     const handleLogInSubmit = async (e) => {
         e.preventDefault();
@@ -19,50 +19,24 @@ const LogInForm = () => {
             const user = await userLogin(formData);
             if (user){ 
                 console.log('Login successful:', user);
-                navigate('/'); // Redirect to the homepage upon successful login
+                navigate('/home/'); // Redirect to the homepage upon successful login
             }
         } catch (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.error('There was an error logging in!', error.response.data);
-                alert('Login failed: ' + JSON.stringify(error.response.data));
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.error('No response received:', error.request);
-                alert('Login failed: No response from server');
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.error('Error', error.message);
-                alert('Login failed: ' + error.message);
-            }
+            console.error('Error in "LogInForm.jsx": ', error.message);
         }
     };
 
       const handleRegisterClick = () => {
-        navigate('/register')
+        navigate('/register/')
       }
 
     return (
         <>
-        <form type="submit" onSubmit={(e)=>handleSubmit(e)}>
+        <form type="submit" onSubmit={(e)=>handleLogInSubmit(e)}>
         <div className="flex items-center justify-center min-h-screen">
             <div className="card glass w-96">
                 <div className="card-body">
                     <h2 className="card-title">Log In</h2>
-                    {/* <label className="input input-bordered flex items-center gap-2">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    className="h-4 w-4 opacity-70">
-                    <path
-                    d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-                    <path
-                    d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
-                </svg>
-                <input type="text" className="grow" placeholder="Email" />
-                </label> */}
                 <label className="input input-bordered flex items-center gap-2">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -100,8 +74,8 @@ const LogInForm = () => {
                     />
                 </label>
                     <div className="card-actions justify-end">
-                    <button className="btn btn-primary" type="submit" onClick={handleLogInSubmit}>Log In</button>
-                    <button className="btn btn-primary" onClick={handleRegisterClick}>Go To Register Page</button>
+                    <button className="btn btn-primary" type="submit" >Log In</button>
+                    <button className="btn btn-primary" type="button" onClick={handleRegisterClick}>Go To Register Page</button>
                     </div>
                 </div>
             </div>

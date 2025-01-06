@@ -40,8 +40,13 @@ class CityPlacesView(APIView):
     
 class GameTodayView(APIView):
 
-    # endpoint to get game on a specific day must look like: 
+    # Add to the end of the endpoint to get the games on a specific day, this is how your
+    # endpoint must look must look like: 
     # http://127.0.0.1:8000/api/v1/api_app/today_games/?dates[]=2024-12-29&dates[]=2024-12-30
+    # NOTE: it begins with a question mark followed by "dates[]=" and the <date>(format:YYYY-MM-DD)
+    # for every date you wish to add follow it by an "&" and the above mentioned format again.
+    # The body will be ignored so do not use it. 
+    # Do not end the endpoint with a "/"
 
     def get(self, request):
         API_KEY = settings.GAME_STATS_KEY
