@@ -1,24 +1,42 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../src/app/utilities';
+import HomeNavBar from '../../components/NavBar/Home/HomeNavBar';
+import MyFavoriteTeamSportsNews from '../../components/Cards/Pages/Home/MyFavoriteTeamSportsNews';
+import CurrentRoster from '../../components/Cards/Pages/Home/CurrentRoster';
+import Recommendations from '../../components/Cards/Pages/Home/Recommendations';
+import MyUpcomingEvents from '../../components/Cards/Pages/Home/MyUpcomingEvents';
+import NextGame from '../../components/Cards/Pages/Home/NextGame';
+
 
 
 const Home = () =>{
-    const navigate = useNavigate(); 
-    const handleSignOut = async () => {
-        try {
-            await logOut();
-            alert('Logout successful');
-            navigate('/login'); // Redirect to the login page
-        } catch (error) {
-            console.error('There was an error logging out!', error.message);
-            alert('Logout failed: ' + error.message);
-        }
-    };
+
     return (
         <>
-            <h1>Home</h1>
-            <button onClick={handleSignOut}>Log out</button>
+            <div className="flex justify-center">
+                <HomeNavBar />
+            </div>
+            <h1 className="text-center text-3xl font-bold my-4">Home</h1>
+            <div className="flex flex-col items-center">
+                <div className="w-full md:w-3/4 p-4 flex justify-between">
+                    <div className="w-1/2 p-2">
+                        <MyUpcomingEvents />
+                    </div>
+                    <div className="w-1/2 p-2">
+                        <NextGame />
+                    </div>
+                </div>
+                <div className="w-full md:w-3/4 p-4 flex justify-center">
+                    <MyFavoriteTeamSportsNews />
+                </div>
+                <div className="w-full md:w-3/4 p-4 flex justify-center">
+                    <CurrentRoster />
+                </div>
+                <div className="w-full md:w-3/4 p-4 flex justify-center">
+                    <Recommendations />
+                </div>
+            </div>
         </>
     )
 }
