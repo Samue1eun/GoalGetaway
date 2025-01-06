@@ -7,7 +7,7 @@ import MyFavoriteTeam from '../../pages/MyFavoriteTeam/MyFavoriteTeam'
 import MyTrips from '../../pages/MyTrips/MyTrips'
 import PlanTravel from '../../pages/PlanTravel/PlanTravel'
 import SportsNews from '../../pages/SportsNews/SportsNews'
-import SportsStats from '../../pages/SportsStats/SportsStats'
+import NFLStats from '../../pages/NFLStats/NFLStats'
 import App from './App'
 
 
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
         children:[
             {
                 index: true,
+                element: <Login />
+            },
+            {
+                path:'/home/',
                 element: <Home />
             },
             {
@@ -49,8 +53,8 @@ const router = createBrowserRouter([
                 element: <SportsNews />
             },
             {
-                path: '/sportsstats/',
-                element: <SportsStats />
+                path: '/nflstatistics/',
+                element: <NFLStats />
             }
         ],
     },
