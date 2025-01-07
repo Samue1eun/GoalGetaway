@@ -108,7 +108,7 @@ class NFLTeamStandings(APIView):
     
     def get(self, request):
         API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
-        season_year = request.GET.getlist("season")[0]
+        season_year = request.GET.get("season")
         
         url = f"https://api.balldontlie.io/nfl/v1/standings?season={season_year}"
         try:
