@@ -24,7 +24,6 @@ const MostRecentScores = () => {
           if (data && data.length > 0 ){
             setTeamStats(data);
             setDateOfLastGames(formattedDate)
-            console.log(data)
             break;
           }
         }catch (error){

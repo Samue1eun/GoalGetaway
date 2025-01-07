@@ -27,11 +27,9 @@ const App = () => {
                     <SettingsIconPageDirectory />
                 </div>
                 <div className="flex-grow">
-                    <Outlet />
+                <Outlet context={{teamInfo, setTeamInfo}} />
                 </div>
             </div>
-        
-            <Outlet context={{teamInfo, setTeamInfo}} />
         </>
 
     );
