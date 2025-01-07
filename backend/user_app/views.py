@@ -73,7 +73,8 @@ class Info(APIView):
         return Response(serializer.data, status=HTTP_200_OK)
         request.user.auth_token.delete()
         return Response(status=HTTP_204_NO_CONTENT)
-    
+
+# Need to add in a Team Model?
 class AddFavoriteTeam(APIView):
     permission_classes = [IsAuthenticated]
 
