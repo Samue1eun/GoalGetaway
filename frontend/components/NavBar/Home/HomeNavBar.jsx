@@ -15,7 +15,7 @@ const HomeNavBar = () => {
             alert('Logout failed: ' + error.message);
         }
     };
-    
+
     return (
         <>
             <div className="navbar bg-base-100 justify-center">
