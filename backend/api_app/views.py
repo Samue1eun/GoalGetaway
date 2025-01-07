@@ -95,3 +95,63 @@ class NFLTeamView(APIView):
                 {"error": "Failed to fetch data from SportsData API", "status_code": response.status_code},
                 status=response.status_code
             )
+
+class NFLTeamStandings(APIView):
+    
+    # Similar to the GameTodayView class the endpoint needs to be modified to 
+    # look like this: 
+    # http://127.0.0.1:8000/api/v1/api_app/team_standings/?season=2023
+    # the addition of "?season=" is already added for you in the code,
+    # simply make sure that when passing the request from the frontend 
+    # that you specify the season's year for example 2023 will encompass
+    # 2023-2024's season. 
+    
+    def get(self, request):
+        API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
+        season_year = request.GET.getlist("season")[0]
+        
+        url = f"https://api.balldontlie.io/nfl/v1/standings?season={season_year}"
+        try:
+            response = requests.get(
+                url,
+                headers={"Authorization": API_KEY}
+            )
+            if response.status_code == 200:
+                teams_data = response.json()
+                return JsonResponse(teams_data, safe=False)
+        except:
+            return JsonResponse("Error: ", response.status_code, safe=False)
+        
+class TopTenStats(APIView):
+    
+    # Similar to the GameTodayView class the endpoint needs to be modified to 
+    # look like this: 
+    # http://127.0.0.1:8000/api/v1/api_app/team_standings/?season=2023
+    # the addition of "?season=", "&sort_by=", and "&sort_order=desc"
+    # is already added for you in the code,simply make sure that when passing 
+    # the request from the frontend that you specify the season's year and the 
+    # requested statistic your looking for. For example passing "2023" for the 
+    # season and "rushing_yards" will return the top ten players sorts in descending
+    # order for the 2023-2024 season. Here are some examples of the possibles 
+    # params you can pass for the requested_param: rushing_yards, passing_yards, 
+    # receiving yards, defensive_sacks, etc. Refer to this link for the full
+    # list of possible params. https://nfl.balldontlie.io/#get-season-stats
+    
+    def get(self, request):
+        API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
+        season_year = request.GET.getlist("season")[0]
+        requested_param = request.GET.getlist("stat_requested")[0]
+            
+        url = f"https://api.balldontlie.io/nfl/v1/season_stats?season={season_year}&sort_by={requested_param}&sort_order=desc"
+        try:
+            response = requests.get(
+                url,
+                headers={"Authorization": API_KEY}
+            )
+            if response.status_code == 200:
+                teams_data = response.json()
+                top_10_players = teams_data["data"][:10]
+                return JsonResponse(top_10_players, safe=False)
+        except:
+            return JsonResponse("Error: ", response.status_code, safe=False)
+    
