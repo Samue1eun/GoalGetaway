@@ -98,7 +98,16 @@ export const getInfo = async() => {
 
 ///////////////////////-----SPORT DATA API-----///////////////////////
 
-
+export const getNFLGamesByDate = async(dateParams) => {
+  try{
+    let response = await api.get(`api_app/today_games/?dates[]=${dateParams}`)
+    if (response.status === 200){
+      return response.data.data
+    }
+  }catch (error){
+    console.error('Error in "getNFLData" function. check utilities.jsx:', error.message)
+  }
+}
 
 ///////////////////////-----MAP API------------///////////////////////
 

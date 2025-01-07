@@ -139,8 +139,8 @@ class TopTenStats(APIView):
     
     def get(self, request):
         API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
-        season_year = request.GET.getlist("season")[0]
-        requested_param = request.GET.getlist("stat_requested")[0]
+        season_year = request.GET.get("season")
+        requested_param = request.GET.get("stat_requested")
             
         url = f"https://api.balldontlie.io/nfl/v1/season_stats?season={season_year}&sort_by={requested_param}&sort_order=desc"
         try:
