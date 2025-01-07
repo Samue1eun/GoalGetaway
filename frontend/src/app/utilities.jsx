@@ -96,6 +96,27 @@ export const getInfo = async() => {
   }
 }
 
+///////////////////////-----ADD TEAM TO USER FAVORITES------------////////////////////////
+
+export const addTeamToUserFavorites = async (teamId) => {
+  let token = localStorage.getItem('token');
+
+  try {
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+      let response = await axios.post('http://127.0.0.1:8000/api/v1/users/add_favorite_team/', { team_id: teamId });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return null;
+      }
+    }
+  } catch (error) {
+    console.error('Error in "addToUserFavorites" function. Check utilities.jsx:', error.message);
+  }
+};
+
+
 ///////////////////////-----SPORT DATA API-----///////////////////////
 
 
