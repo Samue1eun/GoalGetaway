@@ -8,6 +8,7 @@ import MyTrips from '../../pages/MyTrips/MyTrips'
 import PlanTravel from '../../pages/PlanTravel/PlanTravel'
 import SportsNews from '../../pages/SportsNews/SportsNews'
 import NFLStats from '../../pages/NFLStats/NFLStats'
+import Settings from '../../pages/Settings/Settings'
 import App from './App'
 
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
             {
                 path: '/nflstatistics/',
                 element: <NFLStats />
+            },
+            {
+                path: '/settings/',
+                element: <Settings />
             }
         ],
     },
