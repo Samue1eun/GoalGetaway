@@ -27,6 +27,7 @@ SECRET_KEY = env.get("DJANGO_KEY")
 GOOGLE_PLACES_KEY = config('GOOGLE_PLACES_KEY')
 SPORTS_DATA_KEY = config('SPORTS_DATA_KEY')
 GAME_STATS_KEY = config('GAME_STATS_KEY')
+BALL_DONT_LIE_ALLSTAR_KEY = env.get("BALL_DONT_LIE_ALLSTAR_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
     'location_app',
     'team_app',
     'api_app',
+    'hotel_app',
+    'flight_app',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +106,7 @@ DATABASES = { #needs to be updated
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
 

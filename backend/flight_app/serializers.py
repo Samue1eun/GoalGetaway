@@ -1,17 +1,16 @@
 from rest_framework import serializers
-from .models import Event
+from .models import Flight
 
-class EventSerializer(serializers.ModelSerializer):
+class FlightSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Event
+    model = Flight
     fields = [ 
               'id', 
               'user',
-              'name', 
-              'date', 
-              'location', 
-              'game_of_the_day', 
-              'description' 
+              'in_date', 
+              'out_date', 
+              'location_in', 
+              'location_out', 
             ]
     
   def to_representation(self, instance):

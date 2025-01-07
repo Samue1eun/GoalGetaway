@@ -1,18 +1,17 @@
 from rest_framework import serializers
-from .models import Event
+from .models import Hotel
 
-class EventSerializer(serializers.ModelSerializer):
+class HotelSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Event
-    fields = [ 
-              'id', 
-              'user',
-              'name', 
-              'date', 
-              'location', 
-              'game_of_the_day', 
-              'description' 
-            ]
+    model = Hotel
+    fields = [
+      'id',
+      'user',
+      'name',
+      'check_in',
+      'check_out',
+      'location'
+    ]
     
   def to_representation(self, instance):
     representation = super().to_representation(instance)

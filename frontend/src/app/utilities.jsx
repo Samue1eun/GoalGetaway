@@ -11,9 +11,8 @@ export const api = axios.create({
 ///////////////////////-----SIGN UP------------///////////////////////
 
 export const userSignup = async(formData) => {
-  const { email, password, displayName } = formData
-  console.log(formData)
 
+  const { email, password, displayName } = formData
   let response = await api.post(
     'users/signup/',
     {
@@ -40,7 +39,6 @@ export const userSignup = async(formData) => {
 
 export const userLogin = async(formData) => {
   const { email, password } = formData
-  console.log(formData)
   try {
       let response = await api.post(
           "users/login/",  
@@ -96,7 +94,6 @@ export const getInfo = async() => {
   }catch (error){
     console.error('Error in "getInfo" function. check utilities.jsx:', error.message)
   }
-  
 }
 
 ///////////////////////-----SPORT DATA API-----///////////////////////

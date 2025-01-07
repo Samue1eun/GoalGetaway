@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 const LogInForm = () => {
 
-    const [user, setUser] = useState("");
-    const [password, setPassword] = useState("")
-    const [email, setEmail] = useState("")
-    const navigate = useNavigate()
+    const [user, setUser] = useState(null);
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const navigate = useNavigate();
 
     const handleLogInSubmit = async (e) => {
         e.preventDefault();
@@ -22,30 +22,17 @@ const LogInForm = () => {
                 navigate('/home/'); // Redirect to the homepage upon successful login
             }
         } catch (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.error('There was an error logging in!', error.response.data);
-                alert('Login failed: ' + JSON.stringify(error.response.data));
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.error('No response received:', error.request);
-                alert('Login failed: No response from server');
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.error('Error', error.message);
-                alert('Login failed: ' + error.message);
-            }
+            console.error('Error in "LogInForm.jsx": ', error.message);
         }
     };
 
       const handleRegisterClick = () => {
-        navigate('/register')
+        navigate('/register/')
       }
 
     return (
         <>
-        <form type="submit" onSubmit={(e)=>handleSubmit(e)}>
+        <form type="submit" onSubmit={(e)=>handleLogInSubmit(e)}>
         <div className="flex items-center justify-center min-h-screen">
             <div className="card glass w-96">
                 <div className="card-body">
@@ -87,8 +74,8 @@ const LogInForm = () => {
                     />
                 </label>
                     <div className="card-actions justify-end">
-                    <button className="btn btn-primary" type="submit" onClick={handleLogInSubmit}>Log In</button>
-                    <button className="btn btn-primary" onClick={handleRegisterClick}>Go To Register Page</button>
+                    <button className="btn btn-primary" type="submit" >Log In</button>
+                    <button className="btn btn-primary" type="button" onClick={handleRegisterClick}>Go To Register Page</button>
                     </div>
                 </div>
             </div>

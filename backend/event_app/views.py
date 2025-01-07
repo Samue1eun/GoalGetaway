@@ -4,17 +4,22 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from .models import Event
 from .serializers import EventSerializer
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 class AllEvents(APIView):
+  permission_classes = [IsAuthenticated]
     
   def get(self, request):
-    return Response(EventSerializer(Event.objects.all().order_by('event_name'), many=True).data)
+    return Response(EventSerializer(Event.objects.all().order_by('name'), many=True).data)
   
   def post(self, request):
     data = request.data.copy()
     
+    data['user'] = request.user.id 
+    
     new_event = EventSerializer(data=data)
+    
     if new_event.is_valid():
       new_event.save()
       return Response(new_event.data, status=HTTP_201_CREATED)
@@ -26,8 +31,8 @@ class SingleEvent(APIView):
     if type(event_identifier) == int:
       event = get_object_or_404(Event, id=event_identifier)
     elif type(event_identifier) == str:
-      event = get_object_or_404(Event, event_name=event_identifier)#the str search is not working as intended with 
-    return event                                                  #event_name but this can be modified after finalizing the models
+      event = get_object_or_404(Event, name=event_identifier)
+    return event 
         
             
   def get(self, request, event_identifier):
@@ -37,7 +42,11 @@ class SingleEvent(APIView):
     data = request.data.copy()
     updated_event = self.get_event(event_identifier)
         
-    updated_event.event_name = data["event_name"]
+    updated_event.name = data["name"]
+    updated_event.date = data["date"]
+    updated_event.location = data["location"]
+    updated_event.game_of_the_day = data["game_of_the_day"]
+    updated_event.description = data["description"]
         
     updated_event.save()
         
