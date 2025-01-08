@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getNFLGamesByDate } from '../../../../src/app/utilities.jsx'
-import { format, subDays } from 'date-fns';
+import { format, subDays, parseISO } from 'date-fns';
 import { useOutletContext } from 'react-router-dom';
 
 const MostRecentScores = () => {
@@ -17,6 +17,7 @@ const MostRecentScores = () => {
     const fetchGameData = async (currentDate, formattedDate) => {
       setIsLoading(true);
       setError(null);
+      let statsRetrieved = false
 
       while (teamStats.length === 0){
         try {
@@ -24,14 +25,18 @@ const MostRecentScores = () => {
           if (data && data.length > 0 ){
             setTeamStats(data);
             setDateOfLastGames(formattedDate)
+            statsRetrieved = true
             break;
           }
         }catch (error){
           console.error('Error fetching game data:', error);
           setError("Error fetching data");
         }
-        currentDate = subDays(currentDate, 1);
-        formattedDate = format(currentDate, 'yyyy-MM-dd');
+        if(statsRetrieved === false){
+          currentDate = subDays(currentDate, 1);
+          formattedDate = format(currentDate, 'yyyy-MM-dd');
+        }
+        
       }
       setIsLoading(false);
     }
@@ -39,7 +44,12 @@ const MostRecentScores = () => {
       fetchGameData(currentDate, formattedDate);
     }
   }, [])
-
+  
+  const parsedDate = dateOfLastGames ? parseISO(dateOfLastGames) : null; 
+  //parseISO configs the date to the local time zone not the UTC default
+  const formattedGameDate = parsedDate ? format(parsedDate, 'eee, dd') : '';
+  //formatted into 'Mon, 06' format
+  
     return (
         <>
         <div className="card bg-base-100 w-96 shadow-xl">
@@ -50,7 +60,7 @@ const MostRecentScores = () => {
             className="rounded-xl" />
             </figure>
           <div className="card-body items-center text-center">
-            <h2 className="card-title">Most Recent Scores</h2>
+            <h2 className="card-title">Most Recent Scores: {formattedGameDate}</h2>
               {isLoading ? (
                 <span className="loading loading-ring loading-lg"></span>
               ) : error ? (
