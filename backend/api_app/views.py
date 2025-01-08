@@ -137,23 +137,39 @@ class TopTenStats(APIView):
     # receiving yards, defensive_sacks, etc. Refer to this link for the full
     # list of possible params. https://nfl.balldontlie.io/#get-season-stats
     
-    def get(self, request):
-        API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
-        season_year = request.GET.get("season")
-        requested_param = request.GET.get("stat_requested")
+   def get(self, request):
+    API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
+    season_year = request.GET.get("season")
+    requested_param = request.GET.get("stat_requested")
+
+    url = f"https://api.balldontlie.io/nfl/v1/season_stats?season={season_year}&sort_by={requested_param}&sort_order=desc"
+    
+    try:
+        response = requests.get(
+            url,
+            headers={"Authorization": API_KEY}
+        )
+        
+        if response.status_code == 200:
+            teams_data = response.json()
+            seen = set()
+            unique_players = []
             
-        url = f"https://api.balldontlie.io/nfl/v1/season_stats?season={season_year}&sort_by={requested_param}&sort_order=desc"
-        try:
-            response = requests.get(
-                url,
-                headers={"Authorization": API_KEY}
-            )
-            if response.status_code == 200:
-                teams_data = response.json()
-                top_10_players = teams_data["data"][:10]
-                return JsonResponse(top_10_players, safe=False)
-        except:
-            return JsonResponse("Error: ", response.status_code, safe=False)
+            for player in teams_data["data"]:
+                player_id = player["player"]["id"]
+                
+                if player_id not in seen:
+                    unique_players.append(player)
+                    seen.add(player_id) 
+                
+            top_10_players = unique_players[:10]
+            
+            return JsonResponse(top_10_players, safe=False)
+
+    except Exception as e:
+        # Improved error handling
+        return JsonResponse({"error": f"Error occurred: {str(e)}"}, status=500)
+
     
 class NFLSchedules(APIView):
     def get(self, request):
