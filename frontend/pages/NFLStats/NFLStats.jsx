@@ -21,31 +21,30 @@ const NFLStats = () => {
             <h1 className="text-center text-3xl font-bold my-4">NFL Statistics</h1>
             <div className="flex flex-col items-center">
                 <div className="w-full md:w-3/4 p-4 flex justify-between">
-
-                    <div className="w-1/2 p-2">
+                    <div className="w-full md:w-1/2 p-4">
                         <h2 className="text-center text-2xl font-bold my-4">Offense</h2>
-                        <div className="p-4">
+                        <div className="p-6">
                             <TopPassingYards />
                         </div>
-                        <div className="p-4">
+                        <div className="p-6">
                             <TopRushingYards />
                         </div>
-                        <div className="p-4">
+                        <div className="p-6">
                             <TopReceivingYards />
                         </div>
-                        <div className="p-4">
+                        <div className="p-6">
                             <KickerPercentageCompletion />
                         </div>
                     </div>
-                    <div className="w-1/2 p-2">
+                    <div className="w-full md:w-1/2 p-4">
                         <h2 className="text-center text-2xl font-bold my-4">Defense</h2>
-                        <div className="p-4">
+                        <div className="p-6">
                             <TopInterceptions />
                         </div>
-                        <div className="p-4">
+                        <div className="p-6">
                             <TopSacks />
                         </div>
-                        <div className="p-4">
+                        <div className="p-6">
                             <TopTackles />
                         </div>
                     </div>

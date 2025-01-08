@@ -1,9 +1,22 @@
-
+import { useState, useEffect } from 'react';
 
 const KickerPercentageCompletion = () => {
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    // Fetch the JSON data from the API
+    fetch('http://127.0.0.1:8000/api/v1/api_app/top_stats/?season=2024&stat_requested=field_goal_pct')
+        .then(response => response.json())
+        .then(data => {
+            // Sort players by passing yards in descending order and take the top 10
+            const topPlayers = data.sort((a, b) => b.field_goal_pct - a.field_goal_pct).slice(0, 10);
+            setPlayers(topPlayers);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+  }, []);
     return (
         <>
-        <div className="card bg-base-100 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 shadow-xl">
+        <div className="card bg-base-100 w-full shadow-xl">
             <figure className="px-10 pt-10">
             <img
             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -12,16 +25,11 @@ const KickerPercentageCompletion = () => {
             </figure>
           <div className="card-body items-center text-center">
             <h2 className="card-title">Top Kicker Completion Percentages</h2>
-              <p>Player 1</p>
-              <p>Player 2</p>
-              <p>Player 3</p>
-              <p>Player 4</p>
-              <p>Player 5</p>
-              <p>Player 6</p>
-              <p>Player 7</p>
-              <p>Player 8</p>
-              <p>Player 9</p>
-              <p>Player 10</p>
+            {players.map((player, index) => (
+                    <div key={player.player.id} className="p-2">
+                        <p>{index + 1}. {player.player.first_name} {player.player.last_name} - {player.field_goal_pct} %</p>
+                    </div>
+                ))}
           </div>
         </div>
 
