@@ -155,3 +155,11 @@ class TopTenStats(APIView):
         except:
             return JsonResponse("Error: ", response.status_code, safe=False)
     
+class NFLSchedules(APIView):
+    def get(self, request):
+        url = f"https://api.sportradar.com/nfl/official/trial/v7/en/tournaments/d128603c-516d-4814-83bf-b14085503e1a/schedule.json?api_key={settings.NFL_TEAM_SCHEDULES}"
+
+        headers = {"accept": "application/json"}
+
+        response = requests.get(url, headers=headers)
+        return JsonResponse(response.json(), safe=False)

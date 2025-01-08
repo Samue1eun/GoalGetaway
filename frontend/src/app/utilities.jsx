@@ -114,7 +114,6 @@ export const getNFLGamesByDate = async(dateParams) => {
 export const getNFLTeamInfo = async(yearParam) => {
   try{
     let response = await api.get(`api_app/nfl_teams/?season=${yearParam}`)
-    console.log(response.data)
     if (response.status === 200){
       return {
         "Cardinals": response.data[0], 
@@ -153,6 +152,19 @@ export const getNFLTeamInfo = async(yearParam) => {
     }
   }catch (error){
     console.error('Error in "getNFLTeamInfo" function. check utilities.jsx:', error.message)
+  }
+}
+
+///////////////////////-----NFL SCHEDULES------------///////////////////////
+
+export const getNFLPlayoffSchedule = async() =>{
+  try{
+    let response = await api.get(`api_app/nfl_schedule/`)
+    if(response.status === 200){
+      return response.data
+    }
+  }catch(error){
+    console.error('Error in "getNFLPlayoffSchedule" function. check utilities.jsx:', error.message)
   }
 }
 

@@ -4,9 +4,13 @@ import CurrentTeamStandings from '../../components/Cards/Pages/MyFavoriteTeam/Cu
 import MostRecentScores from '../../components/Cards/Pages/MyFavoriteTeam/MostRecentScores';
 import Schedule from '../../components/Cards/Pages/MyFavoriteTeam/Schedule';
 import TeamNews from '../../components/Cards/Pages/MyFavoriteTeam/TeamNews';
+import { useState } from 'react';
 
 
 const MyFavoriteTeam = () => {
+    
+    const [favoriteTeam, setFavoriteTeam] = useState("Dolphins");
+    
     return (
         <>
             <div className="flex justify-center">
@@ -16,13 +20,13 @@ const MyFavoriteTeam = () => {
             <h1 className="text-center text-3xl font-bold my-4">My Favorite Team</h1>
             <div className="flex flex-col items-center">
                 <div className="w-full md:w-3/4 p-4 flex justify-center">
-                    <TeamNews />
+                    <TeamNews  />
                 </div>
                 <div className="w-full md:w-3/4 p-4 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
                     {/* Left of the page */}
                     <div className="flex flex-col items-center space-y-10">
                         <MostRecentScores />
-                        <Schedule />
+                        <Schedule favoriteTeam={favoriteTeam} />
                     </div>
                     {/* Right of the page */}
                     <div className="flex flex-col items-center space-y-10">

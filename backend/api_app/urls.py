@@ -7,4 +7,5 @@ urlpatterns = [
     path('nfl_teams/', views.NFLTeamView.as_view(), name="nfl_teams"),
     path('team_standings/', views.NFLTeamStandings.as_view(), name='team_standings'),
     path('top_stats/', views.TopTenStats.as_view(), name='top_ten_stats_request'),
+    path('nfl_schedule/', views.NFLSchedules.as_view(), name="nfl_schedules"),
 ]
