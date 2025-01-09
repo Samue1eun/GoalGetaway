@@ -167,7 +167,6 @@ class TopTenStats(APIView):
             return JsonResponse(top_10_players, safe=False)
 
     except Exception as e:
-        # Improved error handling
         return JsonResponse({"error": f"Error occurred: {str(e)}"}, status=500)
 
     
