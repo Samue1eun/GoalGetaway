@@ -42,7 +42,11 @@ const Schedule = ({ favoriteTeam }) => {
               <div className="flex gap-16 items-center">
                 {/* Team 1 (Home Team) */}
                 <div className={`flex flex-col items-center w-32 p-4 rounded-lg `}>
-                <img src={teamInfo[match.home.alias]} />
+                {teamInfo[match.home.alias] ? 
+                      <img src={teamInfo[match.home.alias]} />
+                    :
+                    <span>{match.home.name}</span>
+                  }
                 </div>
 
                 {/* VS Separator */}
@@ -52,7 +56,12 @@ const Schedule = ({ favoriteTeam }) => {
 
                 {/* Team 2 (Away Team) */}
                 <div className={`flex flex-col items-center w-32 p-4 rounded-lg  `}>
-                <img src={teamInfo[match.away.alias]} />
+                  {teamInfo[match.away.alias] ? 
+                      <img src={teamInfo[match.away.alias]} />
+                    :
+                      <span>{match.away.name}</span>
+                  }
+                
                 </div>
               </div>
 
@@ -95,7 +104,7 @@ const Schedule = ({ favoriteTeam }) => {
     return obj && typeof obj === 'object' && !Array.isArray(obj);
   };
 
-  console.log(bracket)
+  console.log(matches)
   return (
     <>
       {isDictionary(teamInfo) ?
