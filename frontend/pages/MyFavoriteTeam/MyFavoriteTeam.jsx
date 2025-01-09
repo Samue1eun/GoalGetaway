@@ -3,7 +3,7 @@ import TopPlayerStats from '../../components/Cards/Pages/MyFavoriteTeam/TopPlaye
 import MostRecentScores from '../../components/Cards/Pages/MyFavoriteTeam/MostRecentScores';
 import Schedule from '../../components/Cards/Pages/MyFavoriteTeam/Schedule';
 import { useState } from 'react';
-import footballFieldBackground from "../../assets/football-field-bg.jpg";
+import footballFieldBackground from "../../assets/football-stadium-bg.jpg";
 
 const MyFavoriteTeam = () => {
     const [favoriteTeam, setFavoriteTeam] = useState("Dolphins");

@@ -2,15 +2,15 @@ import { getNFLPlayoffSchedule, getNFLGamesByDate } from '../../../../src/app/ut
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
-const Schedule = ({ favoriteTeam }) => {
+const Schedule = () => {
   const { teamInfo } = useOutletContext();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [bracket, setBracket] = useState(null);
   let matches = {}
-  //NEED TO CHECK THE ALIASES ARE CORRECT TO ALIGN WITH THE API CALLS...
+  
   useEffect(() => {
-    const getTeamSchedule = async (favoriteTeam) => {
+    const getTeamSchedule = async () => {
       setIsLoading(true);
       setError(null);
 
@@ -24,8 +24,8 @@ const Schedule = ({ favoriteTeam }) => {
         setIsLoading(false);
       }
     };
-    getTeamSchedule(favoriteTeam);
-  }, [favoriteTeam]);
+    getTeamSchedule();
+  }, []);
   
   // Function to render each round's matchups
   const renderRound = (roundName, matches) => {
@@ -108,7 +108,7 @@ const Schedule = ({ favoriteTeam }) => {
     <>
       {isDictionary(teamInfo) ?
       
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 bg-base-300 bg-opacity-50">
         <h1 className="text-3xl font-bold text-center mb-6">NFL Playoff Bracket</h1>
 
         {/* Render each round dynamically */}
