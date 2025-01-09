@@ -104,7 +104,6 @@ const Schedule = ({ favoriteTeam }) => {
     return obj && typeof obj === 'object' && !Array.isArray(obj);
   };
 
-  console.log(matches)
   return (
     <>
       {isDictionary(teamInfo) ?

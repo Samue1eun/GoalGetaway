@@ -200,6 +200,38 @@ export const getNFLPlayoffSchedule = async() =>{
   }
 }
 
+///////////////////////-----NFL TOP PLAYERS------------///////////////////////
+
+export const getNFLTopPlayersStatic = async() =>{
+  const topStatsInTheLeague = [
+    "rushing_yards", 
+    "passing_yards", 
+    "receiving_yards", 
+    "field_goal_pct", 
+    "total_tackles", 
+    "defensive_interceptions",
+    "defensive_sacks"
+  ]
+
+  try{
+    const promises = topStatsInTheLeague.map(stat =>
+      api.get(`api_app/top_stats/?season=2024&stat_requested=${stat}`)
+    )
+
+    const responsesDict = await Promise.all(promises)
+
+    const result = topStatsInTheLeague.reduce((acc, stat, index) =>{
+      acc[stat] = responsesDict[index].data
+      return acc
+    }, {})
+    
+    return result
+
+  }catch (error){
+    console.error('Error in "getNFLTopPlayersStatic" function. check utilities.jsx:', error.message)
+  }
+}
+
 ///////////////////////-----MAP API------------///////////////////////
 
 
