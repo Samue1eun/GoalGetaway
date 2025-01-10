@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import Home from '../../pages/Home/Home'
 import Register from '../../pages/Register/Register'
-import Login from '../../pages/Login/Login'
+import Login from "../../pages/LogIn/LogIn";
 import MyEvents from '../../pages/MyEvents/MyEvents'
 import MyFavoriteTeam from '../../pages/MyFavoriteTeam/MyFavoriteTeam'
 import MyTrips from '../../pages/MyTrips/MyTrips'
