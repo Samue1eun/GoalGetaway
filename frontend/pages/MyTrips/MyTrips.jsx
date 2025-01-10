@@ -8,16 +8,18 @@ import React, { useState } from "react";
 
 const MyTrips = () => {
     const [hotels, setHotels] = useState([]);
-    const [flights, setFlights] = useState([]);
-    const [origin, setOrigin] = useState("");
+    const [originCode, setOriginCode] = useState("");
     const [destination, setDestination] = useState("");
     const [departureDate, setDepartureDate] = useState("");
-    const [adults, setAdults] = useState(1);
+    const [numOfAdults, setNumOfAdults] = useState(1);
 
-    const handleHotelsFetched = (fetchedHotels) => {
-        setHotels(fetchedHotels);
+    const handleFormDataFlights = (formData) => {
+        setOriginCode(formData.originCode)
+        setDestination(formData.destination)
+        setDepartureDate(formData.departureDate)
+        setNumOfAdults(formData.numOfAdults)
     };
-
+    
     return (
         <>
             <div className="flex justify-center">
@@ -27,21 +29,15 @@ const MyTrips = () => {
             <div className="flex flex-col items-center">
                 <div className="w-full p-4 flex justify-center">
                     <TripSearch 
-                        onFlightsFetched={setFlights} 
-                        onHotelsFetched={handleHotelsFetched} 
-                        onOriginChange={setOrigin}
-                        onDestinationChange={setDestination}
-                        onDepartureDateChange={setDepartureDate}
-                        onAdultsChange={setAdults}
+                        onFormData={handleFormDataFlights}
                      />
                 </div>
                 <div className="w-full p-4 flex justify-center">
                     <MyFlights 
-                        flights={flights} 
-                        origin={origin} 
+                        originCode={originCode} 
                         destination={destination} 
                         departureDate={departureDate} 
-                        adults={adults} 
+                        numOfAdults={numOfAdults} 
                     />
                 </div>
                 <div className="w-full p-4 flex justify-center">

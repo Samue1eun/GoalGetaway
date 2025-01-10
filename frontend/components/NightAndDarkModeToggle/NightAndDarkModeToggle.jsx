@@ -4,7 +4,7 @@ const NightAndDarkModeToggle = () => {
     const [theme, setTheme] = useState("corporate");
 
     const handleToggle = (e) => {
-        if (e.target.checked) {
+        if (theme === "corporate") {
             setTheme('synthwave');
         } else {
             setTheme('corporate');
@@ -23,7 +23,6 @@ const NightAndDarkModeToggle = () => {
                     type="checkbox"
                     className="theme-controller"
                     onChange={handleToggle}
-                    checked={theme === 'corporate' ? false : true}
                 />
                 {/* sun icon */}
                 <svg
