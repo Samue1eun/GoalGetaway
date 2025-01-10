@@ -17,7 +17,18 @@ const TopPlayerStats = () => {
     getNFLTopStats()
   }, [])
 
-    return (
+  const renderStatComp = (statKey, statData) => {
+    return(
+      <div key={statKey}>
+        <h4 className="text-3xl">{statKey.replace(/_/g, " ").toUpperCase()}</h4>
+        <p>NAME: {statData[0].player.first_name} {statData[0].player.last_name}</p>
+        <p>{statKey.replace(/_/g, " ").toUpperCase()}: {statData[0][statKey]}</p>
+        <br/>
+      </div>
+    )
+  }
+
+  return (
         <>
         {topStats ? 
         <>
@@ -29,8 +40,13 @@ const TopPlayerStats = () => {
             className="rounded-xl" />
             </figure>
           <div className="card-body items-center text-center">
-            <h2 className="card-title">Top Player Stats</h2>
-              <p>Enter Stats Here</p>
+            <h2 className="card-title text-4xl">Top Player Stats</h2>
+             <div>
+              {Object.keys(topStats).map((key) => {
+                const statData = topStats[key];
+                return renderStatComp(key, statData);
+              })}
+             </div>
           </div>
         </div>
         </>: null}
