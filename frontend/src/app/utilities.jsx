@@ -232,6 +232,20 @@ export const getNFLTopPlayersStatic = async() =>{
   }
 }
 
-///////////////////////-----MAP API------------///////////////////////
+///////////////////////-----FLIGHTS API SEARCH------------///////////////////////
+
+export const fetchFlightDetails = async ( originCode, destinationCode, departureDate, numOfAdults) => {
+  try {
+    //date format should look like 2025-01-11
+    const response = await api.get(
+      `api_app/flight_booking/${originCode}/${destinationCode}/${departureDate}/${numOfAdults}/`
+    );
+    if (response.status === 200) {
+      return response.data
+    }
+  } catch (error) {
+    console.error("Error fetching flights check 'fetchFlightDetails' function in utilities.jsx: ", error);
+  }
+};
 
 
