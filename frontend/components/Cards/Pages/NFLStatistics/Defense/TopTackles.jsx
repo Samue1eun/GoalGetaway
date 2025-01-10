@@ -1,71 +1,79 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
 const TopTackles = () => {
-    const [players, setPlayers] = useState([]);
+    const [tackleStats, setTackleStats] = useState(null);
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/v1/api_app/top_stats/?season=2024&stat_requested=total_tackles')
-            .then(response => response.json())
-            .then(data => {
-                const topPlayers = data.sort((a, b) => b.total_tackles - a.total_tackles).slice(0, 10);
-                setPlayers(topPlayers);
-            })
-            .catch(error => console.error('Error fetching data:', error));
+        const getTackleStats = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/v1/api_app/top_stats/?season=2024&stat_requested=total_tackles');
+                const data = await response.json();
+                setTackleStats(data);
+            } catch (error) {
+                console.error(`Error fetching tackle statistics: ${error}`);
+            }
+        };
+        getTackleStats();
     }, []);
 
-    return (
-        <>
-            <div className="card bg-base-100 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 shadow-xl">
-                <figure className="px-10 pt-10">
-                    <img
-                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                        alt="Shoes"
-                        className="rounded-xl" 
-                    />
-                </figure>
-                <div className="card-body items-center text-center">
-                    <h2 className="card-title">Top Tackles</h2>
-                    <div className="w-full">
-                        {players.map((player, index) => (
-                            <div key={player.player.id} className="collapse collapse-arrow bg-base-200 mb-2">
-                                <input 
-                                    type="radio" 
-                                    name="tackles-accordion" 
-                                    defaultChecked={index === 0} 
-                                />
-                                <div className="collapse-title text-xl font-medium">
-                                    {index + 1}. {player.player.first_name} {player.player.last_name} - {player.total_tackles} tackles
-                                </div>
-                                <div className="collapse-content">
-                                    <div className="text-left">
-                                        <p>Position: {player.player.position} ({player.player.position_abbreviation})</p>
-                                        <p>Height: {player.player.height}</p>
-                                        <p>Weight: {player.player.weight}</p>
-                                        <p>Jersey: #{player.player.jersey_number}</p>
-                                        <p>College: {player.player.college}</p>
-                                        <p>Experience: {player.player.experience}</p>
-                                        <p>Age: {player.player.age}</p>
-                                        <div className="mt-2">
-                                            <h3 className="font-bold">Tackle Breakdown:</h3>
-                                            <p>Solo Tackles: {player.solo_tackles}</p>
-                                            <p>Assist Tackles: {player.assist_tackles}</p>
-                                            <div className="mt-2">
-                                                <h3 className="font-bold">Additional Stats:</h3>
-                                                <p>Games Played: {player.games_played}</p>
-                                                <p>Sacks: {player.defensive_sacks}</p>
-                                                <p>Forced Fumbles: {player.fumbles_forced}</p>
-                                                <p>Interceptions: {player.defensive_interceptions}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+    const renderStatComp = (playerData, index) => {
+        return (
+            <div key={playerData.player.id} className="collapse collapse-arrow bg-base-200 mb-2">
+                <input 
+                    type="checkbox" 
+                    name="tackles-accordion"
+                />
+                <div className="collapse-title text-xl font-medium">
+                    {index + 1}. {playerData.player.first_name} {playerData.player.last_name} - {playerData.total_tackles} tackles
+                </div>
+                <div className="collapse-content">
+                    <div className="text-left">
+                        <p>Position: {playerData.player.position} ({playerData.player.position_abbreviation})</p>
+                        <p>Height: {playerData.player.height}</p>
+                        <p>Weight: {playerData.player.weight}</p>
+                        <p>Jersey: #{playerData.player.jersey_number}</p>
+                        <p>College: {playerData.player.college}</p>
+                        <p>Experience: {playerData.player.experience}</p>
+                        <p>Age: {playerData.player.age}</p>
+                        <div className="mt-2">
+                            <h3 className="font-bold">Tackle Breakdown:</h3>
+                            <p>Solo Tackles: {playerData.solo_tackles}</p>
+                            <p>Assist Tackles: {playerData.assist_tackles}</p>
+                            <div className="mt-2">
+                                <h3 className="font-bold">Additional Stats:</h3>
+                                <p>Games Played: {playerData.games_played}</p>
+                                <p>Sacks: {playerData.defensive_sacks}</p>
+                                <p>Forced Fumbles: {playerData.fumbles_forced}</p>
+                                <p>Interceptions: {playerData.defensive_interceptions}</p>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             </div>
+        );
+    };
+
+    return (
+        <>
+            {tackleStats ? 
+                <div className="card bg-base-100 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 shadow-xl">
+                    <figure className="px-10 pt-10">
+                        <img
+                            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                            alt="Shoes"
+                            className="rounded-xl" 
+                        />
+                    </figure>
+                    <div className="card-body items-center text-center">
+                        <h2 className="card-title">Top Tackles</h2>
+                        <div className="w-full">
+                            {tackleStats.map((player, index) => renderStatComp(player, index))}
+                        </div>
+                    </div>
+                </div>
+            : null}
         </>
     );
-}
+};
 
 export default TopTackles;
