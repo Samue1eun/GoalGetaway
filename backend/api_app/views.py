@@ -204,10 +204,6 @@ class FlightScheduleView(APIView):
         except requests.exceptions.RequestException as e:
             return JsonResponse({"error": "Failed to fetch flight schedule.", "details": str(e)}, status=500)
         
-import requests
-from django.http import JsonResponse
-from django.conf import settings
-
 class HotelView(APIView):
     def get(self, request, cityCode):
         if not cityCode:
