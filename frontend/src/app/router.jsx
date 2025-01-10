@@ -1,13 +1,14 @@
 import { createBrowserRouter } from "react-router-dom"
 import Home from '../../pages/Home/Home'
 import Register from '../../pages/Register/Register'
-import Login from '../../pages/Login/Login'
+import Login from "../../pages/LogIn/LogIn";
 import MyEvents from '../../pages/MyEvents/MyEvents'
 import MyFavoriteTeam from '../../pages/MyFavoriteTeam/MyFavoriteTeam'
 import MyTrips from '../../pages/MyTrips/MyTrips'
 import PlanTravel from '../../pages/PlanTravel/PlanTravel'
 import SportsNews from '../../pages/SportsNews/SportsNews'
-import SportsStats from '../../pages/SportsStats/SportsStats'
+import NFLStats from '../../pages/NFLStats/NFLStats'
+import Settings from '../../pages/Settings/Settings'
 import App from './App'
 
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         children:[
             {
                 index: true,
+                element: <Login />
+            },
+            {
+                path:'/home/',
                 element: <Home />
             },
             {
@@ -49,8 +54,12 @@ const router = createBrowserRouter([
                 element: <SportsNews />
             },
             {
-                path: '/sportsstats/',
-                element: <SportsStats />
+                path: '/nflstatistics/',
+                element: <NFLStats />
+            },
+            {
+                path: '/settings/',
+                element: <Settings />
             }
         ],
     },
