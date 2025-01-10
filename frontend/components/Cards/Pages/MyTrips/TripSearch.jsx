@@ -47,7 +47,7 @@ const fetchFlights = async () => {
         <input
           type="text"
           className="grow"
-          placeholder="City Code"
+          placeholder="Search Hotels by City Code"
           onChange={(e) => setCityCode(e.target.value)}
         /> 
         <button
@@ -68,7 +68,7 @@ const fetchFlights = async () => {
           </svg>
         </button>
       </label>
-      <div>
+      <div style={{marginTop: "22px"}}>
         <input type="text" placeholder="Origin" onChange={(e) => onOriginChange(e.target.value)} />
         <input type="text" placeholder="Destination" onChange={(e) => onDestinationChange(e.target.value)} />
         <input type="date" placeholder="Departure Date" onChange={(e) => onDepartureDateChange(e.target.value)} />
