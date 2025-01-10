@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import JsonResponse
 from django.core.cache import cache
+from datetime import datetime
 
 class CityPlacesView(APIView):
     def get(self, request, city_name):
@@ -285,50 +286,72 @@ class HotelDetailsView(APIView):
         
         if data.get("results"):
             hotel_details = data["results"][0]
+
+            if "photos" in hotel_details and len(hotel_details["photos"]) > 0:
+                photo_reference = hotel_details["photos"][0]["photo_reference"]
+                image_url = self.construct_image_url(photo_reference)
+                hotel_details["image_url"] = image_url
+
             return JsonResponse(hotel_details, safe=False)
         else:
             return JsonResponse({"error": "No details found for the given hotel."}, status=404)
+    
+    def construct_image_url(self, photo_reference):
+        return f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={photo_reference}&key={settings.GOOGLE_PLACES_KEY}"
 
 class FlightBookingView(APIView):
     def get(self, request, originLocationCode, destinationLocationCode, departureDate, adults):
-        
+
+        # Validate required parameters
         if not all([originLocationCode, destinationLocationCode, departureDate, adults]):
             return JsonResponse({"error": "Missing required parameters."}, status=400)
-        
+
         try:
+            # Format departure date
+            try:
+                formatted_date = datetime.strptime(departureDate, "%Y-%m-%d").strftime("%Y-%m-%d")
+            except ValueError:
+                return JsonResponse({"error": "Invalid date format. Please use YYYY-MM-DD."}, status=400)
+
+            print(f"Converted departure date: {formatted_date}")
+
+            # Get access token from cache or request new one
             access_token = cache.get('amadeus_access_token')
+            token_url = "https://test.api.amadeus.com/v1/security/oauth2/token"
+            token_data = {
+                "grant_type": "client_credentials",
+                "client_id": settings.AMAEDEUS_FLIGHT_KEY,
+                "client_secret": settings.AMAEDEUS_SECRET_KEY_TWO
+            }
 
             if not access_token:
-                token_url = "https://test.api.amadeus.com/v1/security/oauth2/token"
-                token_data = {
-                    "grant_type": "client_credentials",
-                    "client_id": settings.AMAEDEUS_API_KEY,
-                    "client_secret": settings.AMAEDEUS_SECRET_KEY
-                }
+                token_response = requests.post(token_url, data=token_data)
 
-            token_response = requests.post(token_url, data=token_data)
+                if token_response.status_code != 200:
+                    return JsonResponse(
+                        {"error": "Failed to authenticate with Amadeus API.", "details": token_response.json()},
+                        status=500
+                    )
 
-            if token_response.status_code != 200:
-                return JsonResponse(
-                    {"error": "Failed to authenticate with Amadeus API.", "details": token_response.json()},
-                    status=500
-                )
+                token_json = token_response.json()
+                access_token = token_json.get('access_token')
+                expires_in = token_json.get('expires_in', 1799)
 
-            token_json = token_response.json()
-            access_token = token_json.get('access_token')
-            expires_in = token_json.get('expires_in', 1799)
+                if not access_token:
+                    return JsonResponse({"error": "Authentication response did not include an access token."}, status=500)
 
-            if not access_token:
-                return JsonResponse({"error": "Authentication response did not include an access token."}, status=500)
+                cache.set('amadeus_access_token', access_token, timeout=expires_in)
 
-            cache.set('amadeus_access_token', access_token, timeout=expires_in)
+            print(f"Access Token: {access_token}")
 
-            amadeus_url = "https://test.api.amadeus.com/v2/shopping/flight-offers/"
+            # Prepare request to Amadeus API
+            amadeus_url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
             params = {
                 "originLocationCode": originLocationCode,
                 "destinationLocationCode": destinationLocationCode,
-                "departureDate": departureDate,
+                "departureDate": formatted_date,
                 "adults": adults,
+                "max": 5
             }
             headers = {
                 "Authorization": f"Bearer {access_token}",
@@ -338,12 +361,20 @@ class FlightBookingView(APIView):
             print(f"Parameters: {params}")
             print(f"Headers: {headers}")
 
+            # Make the API request
             flight_response = requests.get(amadeus_url, params=params, headers=headers)
-            flight_response.raise_for_status()
+
+            if flight_response.status_code != 200:
+                print(f"Flight Response Error: {flight_response.status_code}")
+                print(f"Response Content: {flight_response.text}")
+                return JsonResponse({
+                    "error": f"Error from Amadeus API: {flight_response.status_code}",
+                    "details": flight_response.json()
+                }, status=flight_response.status_code)
 
             flight_data = flight_response.json()
             return JsonResponse(flight_data, safe=False)
 
         except requests.exceptions.RequestException as e:
             print(f"Error Response Content: {e.response.text if e.response else 'No Response Content'}")
-            return JsonResponse({"error": str(e)}, status=500)
+            return JsonResponse({"error": "Request exception occurred.", "details": str(e)}, status=500)
