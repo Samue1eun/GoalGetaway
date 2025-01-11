@@ -66,7 +66,7 @@ const Schedule = () => {
               </div>
 
               {/* Match Status (Score or TBD) */}
-              <div className="text-sm text-gray-500 mt-2">
+              <div className="text-lg mt-2">
                 <span>{match.status ?? "TBD"}</span>
               </div>
             </div>
@@ -108,14 +108,17 @@ const Schedule = () => {
     <>
       {isDictionary(teamInfo) ?
       
-        <div className="container mx-auto p-4 bg-base-300 bg-opacity-50">
-        <h1 className="text-3xl font-bold text-center mb-6">NFL Playoff Bracket</h1>
+        <div className="container mx-auto p-4 text-white glass w-full rounded-box bg-opacity-50">
+          <h1 className="text-3xl font-bold text-center mt-6 mb-6">NFL Playoff Bracket</h1>
 
         {/* Render each round dynamically */}
-        <div className="flex flex-col sm:flex-row justify-center gap-12 flex-wrap">
+          <div className="flex flex-col  justify-center  flex-wrap">
           {bracket[0] && renderRound("Wild Card Round", matches["Wild Card Round"])}
+          <div className="divider divider-primary"></div>
           {bracket[1] && renderRound("Divisional Round", matches["Divisional Round"])}
+          <div className="divider divider-primary"></div>
           {bracket[2] && renderRound("Conference Championship Round", matches["Conference Championship Round"])}
+          <div className="divider divider-primary"></div>
           {bracket[3] && renderRound("Super Bowl", matches["Super Bowl"])}
         </div>
       </div> : null}
