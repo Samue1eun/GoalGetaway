@@ -1,4 +1,3 @@
-import MyFavoriteTeamNavBar from '../../components/NavBar/MyFavoriteTeam/MyFavoriteTeamNavBar';
 import TopPlayerStats from '../../components/Cards/Pages/MyFavoriteTeam/TopPlayerStats';
 import MostRecentScores from '../../components/Cards/Pages/MyFavoriteTeam/MostRecentScores';
 import Schedule from '../../components/Cards/Pages/MyFavoriteTeam/Schedule';

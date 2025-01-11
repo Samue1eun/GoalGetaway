@@ -74,7 +74,7 @@ const TripSearch = ({onFormData}) => {
             className="grow" 
             placeholder="Origin Code" 
             value={originCode}
-            onChange={(e) => setOriginCode(e.target.value)}  />
+            onChange={(e) => setOriginCode(e.target.value.toUpperCase())}  />
         </label>
 
         {/* Destination Code input bar */}
@@ -87,7 +87,7 @@ const TripSearch = ({onFormData}) => {
             className="grow" 
             placeholder="Destination Code" 
             value={destination}
-            onChange={(e) => setDestination(e.target.value)} />
+            onChange={(e) => setDestination(e.target.value.toUpperCase())} />
         </label>
 
         {/* Departure Date input bar */}

@@ -248,4 +248,35 @@ export const fetchFlightDetails = async ( originCode, destinationCode, departure
   }
 };
 
+///////////////////////-----HOTELS API SEARCH------------///////////////////////
 
+export const fetchHotels = async (cityCode) => {
+  try {
+    const response = await api.get(`api_app/hotel_data/${cityCode}/`);
+    if (response.status === 200) {
+      return response.data
+    }
+  } catch (error) {
+    console.error("Error fetching hotels check 'fetchHotels' function in utilities.jsx: ", error);
+  }
+};
+
+///////////////////////-----HOTEL DETAILS API------------///////////////////////
+
+export const fetchHotelDetails = async (hotelList) => {
+  let responseList = []
+  for(let i = 0; i < hotelList.length; i++){
+    console.log("responseList")
+    try {
+      const formattedName = hotelList[i].name.replaceAll(" ", "_");
+      const response = await api.get(`api_app/hotel_details/${formattedName}/`
+      );
+      if (response.status === 200) {
+        responseList.push(response.data)
+      } 
+    } catch (error) {
+      console.error("Error fetching hotel details check 'fetchHotelDetails' function in utilities.jsx: ", error);
+    }
+  }
+  return responseList
+}

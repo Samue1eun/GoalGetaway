@@ -22,9 +22,8 @@ const MyFlights = ({ originCode, destination, departureDate, numOfAdults }) => {
         {flightDetailsList.length > 0 ? (
           flightDetailsList.map((flightDetails, index) => (
             <li key={index} className="mb-4">
-              <h2 className="text-xl font-bold mb-4">Flights</h2>
-              <div className="border p-4">
-                <h3 className="font-semibold">Flight ID: {flightDetails.id}</h3>
+              <div className="card border p-4">
+                <h3 className="font-semibold text-center">Flight ID: {flightDetails.id}</h3>
                 <br/>
                 <p>
                   <strong>Price:</strong> ${flightDetails.price.total}
@@ -63,9 +62,13 @@ const MyFlights = ({ originCode, destination, departureDate, numOfAdults }) => {
                       {flightDetails.itineraries[0].segments[1].arrival.iataCode} @{"  "}
                       {flightDetails.itineraries[0].segments[1].arrival.at.replace("T", " ")}
                     </p>
+                    
                   </>
                   : null
                 }
+                <div className="flex justify-center mt-6 mb-4">
+                  <button className="btn btn-primary" >Add to cart</button>
+                </div>
               </div>
             </li>
           ))
