@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import NightAndDarkModeToggle from '../../components/NightAndDarkModeToggle/NightAndDarkModeToggle';
-import SettingsIconPageDirectory from '../../components/Settings/SettingsIconPageDirectory/SettingsIconPageDirectory';
 import { useEffect, useState } from 'react'
 import { getNFLTeamInfo } from './utilities.jsx'
+import Navbar from '../../components/NavBar/Navbar.jsx';
 
 const App = () => {
     // The data will be return by team name(key) use dot notation
@@ -20,13 +19,11 @@ const App = () => {
     }, [])
     
     return (
-        <>
-            <div className="min-h-screen flex flex-col">
-                <div className="flex justify-end p-4">
-                    <NightAndDarkModeToggle />
-                    <SettingsIconPageDirectory />
-                </div>
-                <div className="flex-grow">
+        <>  
+            <Navbar />
+            <div className="min-h-screen w-full flex flex-col">
+                
+                <div className="w-full flex-grow">
                 <Outlet context={{teamInfo, setTeamInfo}} />
                 </div>
             </div>

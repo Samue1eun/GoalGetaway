@@ -5,7 +5,7 @@ const TripSearch = ({onFormData}) => {
   const [originCode, setOriginCode] = useState("");
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
-  const [numOfAdults, setNumOfAdults] = useState(1);
+  const [numOfAdults, setNumOfAdults] = useState("");
 
   const fetchHotels = async () => {
     try {
@@ -45,7 +45,7 @@ const TripSearch = ({onFormData}) => {
         /> 
         <button
           onClick={fetchHotels}
-          className="p-2 rounded-full bg-red-500 text-white opacity-70 hover:bg-red-600 transition-all cursor-pointer"
+          className="btn btn-circle btn-sm btn-primary"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -103,6 +103,7 @@ const TripSearch = ({onFormData}) => {
             onChange={(e) => setDepartureDate(e.target.value)}
           />
         </label>
+
         {/* Number of Adults input bar */}
         <label className="input mt-2 input-bordered flex items-center gap-2" >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -110,13 +111,13 @@ const TripSearch = ({onFormData}) => {
         </svg>
           <input 
             type="text" 
-            className="grow " 
+            className="grow" 
             placeholder="Number of Adults"
             value={numOfAdults}
             onChange={(e) => setNumOfAdults(Number(e.target.value))}
           />
         </label>
-        <input className="btn w-60 mt-4 self-center" type="submit" value="Submit" />
+        <input className="btn btn-primary w-60 mt-4 self-center" type="submit" value="Submit" />
       </div>
     </form>
   );

@@ -72,7 +72,7 @@ const MostRecentScores = () => {
       prevIndex === 0 ? teamStats.length - 1 : prevIndex - 1
     );
   };
-
+  console.log(teamStats)
   return (
     <div className="card bg-base-100 w-full shadow-xl">
       <div className="card-body items-center text-center">
@@ -148,11 +148,10 @@ const MostRecentScores = () => {
 
                         {/* Score Section with Sporty Design */}
                         <div
-                          className="mt-4 text-3xl font-bold py-2 px-4 rounded-lg"
+                          className="mt-4 text-3xl card card-bordered font-bold py-2 px-4 rounded-lg"
                           style={{
                             backgroundColor: "#2A9D8F", // A sport-style background color
                             color: "white", // white score text for contrast
-                            border: "3px solid #264653", // border to give the score box more structure
                             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)", // added text shadow for sporty look
                           }}
                         >
