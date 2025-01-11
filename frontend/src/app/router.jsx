@@ -10,6 +10,7 @@ import SportsNews from '../../pages/SportsNews/SportsNews'
 import NFLStats from '../../pages/NFLStats/NFLStats'
 import Settings from '../../pages/Settings/Settings'
 import App from './App'
+import Hotels from "../../pages/MyTrips/Hotels";
 
 
 const router = createBrowserRouter([
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
             {
                 path: '/settings/',
                 element: <Settings />
+            },
+            {
+                path: '/hotels/',
+                element: <Hotels />
             }
         ],
     },
