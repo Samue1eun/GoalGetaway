@@ -22,9 +22,7 @@ const MyTrips = () => {
     
     return (
         <>
-            <div className="flex justify-center">
-                <MyTripNavBar />
-            </div>
+            
             <h1 className="text-center text-3xl font-bold my-4">Book Your Game-day Getaway</h1>
             <div className="flex flex-col items-center">
                 <div className="w-full p-4 flex justify-center ">

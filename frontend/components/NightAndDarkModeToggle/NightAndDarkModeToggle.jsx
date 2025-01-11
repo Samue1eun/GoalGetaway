@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
 const NightAndDarkModeToggle = () => {
-    const [theme, setTheme] = useState("emerald");
+    const [theme, setTheme] = useState("light");
 
     const handleToggle = (e) => {
-        if (theme === "emerald") {
+        if (theme === "light") {
             setTheme('synthwave');
         } else {
-            setTheme('emerald');
+            setTheme('light');
         }
     }
 

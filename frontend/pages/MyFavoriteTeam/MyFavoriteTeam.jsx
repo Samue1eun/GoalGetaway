@@ -17,9 +17,6 @@ const MyFavoriteTeam = () => {
                 style={{ backgroundImage: `url(${footballFieldBackground})` }}
             >
                 <div className="hero-overlay justify-center justify-items-center w-full p-4">
-                    <div className="flex justify-center">
-                        <MyFavoriteTeamNavBar />
-                    </div>
 
                     <div className="hero-content flex flex-col items-center">
 

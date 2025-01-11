@@ -15,10 +15,6 @@ const Home = () =>{
 
     return (
         <>
-            <div className="flex justify-center">
-                <HomeNavBar />
-                {/* <LightAndDarkModeToggle /> */}
-            </div>
             <h1 className="text-center text-3xl font-bold my-4">Home</h1>
             <div className="flex flex-col items-center">
                 <div className="w-full md:w-3/4 p-4 flex justify-between">
