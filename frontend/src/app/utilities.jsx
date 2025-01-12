@@ -266,7 +266,6 @@ export const fetchHotels = async (cityCode) => {
 export const fetchHotelDetails = async (hotelList) => {
   let responseList = []
   for(let i = 0; i < hotelList.length; i++){
-    console.log("responseList")
     try {
       const formattedName = hotelList[i].name.replaceAll(" ", "_");
       const response = await api.get(`api_app/hotel_details/${formattedName}/`

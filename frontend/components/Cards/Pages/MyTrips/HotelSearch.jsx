@@ -58,7 +58,7 @@ const HotelSearch = () => {
                   <img
                     src={hotelDetails.image_url}
                     alt={hotelDetails.name}
-                    className="w-full rounded-t-lg"
+                    className="h-64 w-full rounded-t-lg"
                   />
                   <div className="divider divider-primary"></div>
                   <h3 className="card-title font-semibold">{hotelDetails.name}</h3>
