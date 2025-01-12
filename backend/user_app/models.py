@@ -15,3 +15,9 @@ class User(AbstractUser):
     
     def __str__(self):
         return self.email
+    
+class Team(models.Model):
+    team_name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.team_name
