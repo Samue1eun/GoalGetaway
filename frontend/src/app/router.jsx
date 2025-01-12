@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import Home from '../../pages/Home/Home'
 import Register from '../../pages/Register/Register'
-import Login from '../../pages/Login/Login'
+import Login from "../../pages/LogIn/LogIn";
 import MyEvents from '../../pages/MyEvents/MyEvents'
 import MyFavoriteTeam from '../../pages/MyFavoriteTeam/MyFavoriteTeam'
 import MyTrips from '../../pages/MyTrips/MyTrips'
@@ -10,6 +10,7 @@ import SportsNews from '../../pages/SportsNews/SportsNews'
 import NFLStats from '../../pages/NFLStats/NFLStats'
 import Settings from '../../pages/Settings/Settings'
 import App from './App'
+import Hotels from "../../pages/MyTrips/Hotels";
 
 
 const router = createBrowserRouter([
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
             {
                 path: '/settings/',
                 element: <Settings />
+            },
+            {
+                path: '/hotels/',
+                element: <Hotels />
             }
         ],
     },

@@ -1,6 +1,8 @@
 # Ignore the virtual environment directory
 redzone_venv/
 
+venv/
+
 # Ignore Python cache files
 __pycache__/
 *.pyc

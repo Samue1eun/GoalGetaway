@@ -5,9 +5,6 @@ import FavoriteTeamSelection from "../../components/Settings/FavoriteTeamSelecti
 const Settings = () => {
     return (
         <>
-            <div className="flex justify-center">
-                <SettingsNavBar />
-            </div>
             <h1 className="text-center text-3xl font-bold my-4">Settings</h1>
             <div className="flex flex-col items-center">
                 <div className="w-full p-4 flex justify-center">

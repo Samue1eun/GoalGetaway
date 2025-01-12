@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import JsonResponse
+from django.core.cache import cache
+from datetime import datetime
 
 class CityPlacesView(APIView):
     def get(self, request, city_name):
@@ -108,7 +110,7 @@ class NFLTeamStandings(APIView):
     
     def get(self, request):
         API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
-        season_year = request.GET.getlist("season")[0]
+        season_year = request.GET.get("season")
         
         url = f"https://api.balldontlie.io/nfl/v1/standings?season={season_year}"
         try:
@@ -137,21 +139,237 @@ class TopTenStats(APIView):
     # receiving yards, defensive_sacks, etc. Refer to this link for the full
     # list of possible params. https://nfl.balldontlie.io/#get-season-stats
     
-    def get(self, request):
-        API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
-        season_year = request.GET.getlist("season")[0]
-        requested_param = request.GET.getlist("stat_requested")[0]
-            
-        url = f"https://api.balldontlie.io/nfl/v1/season_stats?season={season_year}&sort_by={requested_param}&sort_order=desc"
-        try:
-            response = requests.get(
-                url,
-                headers={"Authorization": API_KEY}
-            )
-            if response.status_code == 200:
-                teams_data = response.json()
-                top_10_players = teams_data["data"][:10]
-                return JsonResponse(top_10_players, safe=False)
-        except:
-            return JsonResponse("Error: ", response.status_code, safe=False)
+   def get(self, request):
+    API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
+    season_year = request.GET.get("season")
+    requested_param = request.GET.get("stat_requested")
+
+    url = f"https://api.balldontlie.io/nfl/v1/season_stats?season={season_year}&sort_by={requested_param}&sort_order=desc"
     
+    try:
+        response = requests.get(
+            url,
+            headers={"Authorization": API_KEY}
+        )
+        
+        if response.status_code == 200:
+            teams_data = response.json()
+            seen = set()
+            unique_players = []
+            
+            for player in teams_data["data"]:
+                player_id = player["player"]["id"]
+                
+                if player_id not in seen:
+                    unique_players.append(player)
+                    seen.add(player_id) 
+                
+            top_10_players = unique_players[:10]
+            
+            return JsonResponse(top_10_players, safe=False)
+
+    except Exception as e:
+        return JsonResponse({"error": f"Error occurred: {str(e)}"}, status=500)
+
+    
+class NFLSchedules(APIView):
+    def get(self, request):
+        url = f"https://api.sportradar.com/nfl/official/trial/v7/en/tournaments/d128603c-516d-4814-83bf-b14085503e1a/schedule.json?api_key={settings.NFL_TEAM_SCHEDULES}"
+
+        headers = {"accept": "application/json"}
+
+        response = requests.get(url, headers=headers)
+        return JsonResponse(response.json(), safe=False)
+class FlightScheduleView(APIView):
+    def get(self, request):
+        iata = request.GET.get("iata")
+        mode = request.GET.get("mode")
+        day = request.GET.get("day")
+
+        if not iata or not mode:
+            return JsonResponse({"error": "Missing required parameters: 'iata' and 'mode' are required."}, status=400)
+
+        API_KEY = settings.FLIGHT_DATA_KEY
+        print(f"Using API Key: {API_KEY}")
+
+        api_url = f"https://api.flightapi.io/schedule/{API_KEY}?mode={mode}&iata={iata}"
+        if day:
+            api_url += f"&day={day}"
+
+        try:
+            response = requests.get(api_url)
+            response.raise_for_status() 
+            data = response.json()
+            return JsonResponse(data, safe=False)
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({"error": "Failed to fetch flight schedule.", "details": str(e)}, status=500)
+        
+class HotelView(APIView):
+    def get(self, request, cityCode):
+        if not cityCode:
+            return JsonResponse({"error": "Missing required parameter 'iata' (city code)."}, status=400)
+
+        access_token = cache.get('amadeus_access_token')
+
+        if not access_token:
+            token_url = "https://test.api.amadeus.com/v1/security/oauth2/token"
+            token_data = {
+                "grant_type": "client_credentials",
+                "client_id": settings.AMAEDEUS_API_KEY,
+                "client_secret": settings.AMAEDEUS_SECRET_KEY
+            }
+
+            token_response = requests.post(token_url, data=token_data)
+
+            if token_response.status_code != 200:
+                return JsonResponse(
+                    {"error": "Failed to authenticate with Amadeus API.", "details": token_response.json()},
+                    status=500
+                )
+
+            token_json = token_response.json()
+            access_token = token_json.get('access_token')
+            expires_in = token_json.get('expires_in', 1799)
+
+            if not access_token:
+                return JsonResponse({"error": "Authentication response did not include an access token."}, status=500)
+
+            cache.set('amadeus_access_token', access_token, timeout=expires_in)
+
+        hotels_url = "https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city"
+        headers = {"Authorization": f"Bearer {access_token}"}
+        params = {"cityCode": cityCode}
+
+        print("Requesting hotels with params:", params)
+
+        hotels_response = requests.get(hotels_url, headers=headers, params=params)
+
+        if hotels_response.status_code != 200:
+            return JsonResponse(
+                {"error": "Failed to fetch hotel data from Amadeus API.", "details": hotels_response.json()},
+                status=hotels_response.status_code
+            )
+
+        return JsonResponse(hotels_response.json(), safe=False)
+    
+class HotelDetailsView(APIView):
+    def get(self, request, hotel_name):
+        if not hotel_name:
+            return JsonResponse(
+                {"error": "Missing required URL parameter: 'hotel_name'."},
+                status=400
+            )
+        
+        formatted_hotel_name = hotel_name.replace("_", " ").strip().title()
+
+        print(f"Formatted Hotel Name: {formatted_hotel_name}")
+        
+        google_places_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+        
+        params = {
+            "key": settings.GOOGLE_PLACES_KEY,
+            "radius": 1000, 
+            "query": formatted_hotel_name 
+        }
+        
+        response = requests.get(google_places_url, params=params)
+        
+        if response.status_code != 200:
+            return JsonResponse({"error": "Failed to fetch hotel details from Google Places API."}, status=500)
+        
+        data = response.json()
+        
+        if data.get("results"):
+            hotel_details = data["results"][0]
+
+            if "photos" in hotel_details and len(hotel_details["photos"]) > 0:
+                photo_reference = hotel_details["photos"][0]["photo_reference"]
+                image_url = self.construct_image_url(photo_reference)
+                hotel_details["image_url"] = image_url
+
+            return JsonResponse(hotel_details, safe=False)
+        else:
+            return JsonResponse({"error": "No details found for the given hotel."}, status=404)
+    
+    def construct_image_url(self, photo_reference):
+        return f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={photo_reference}&key={settings.GOOGLE_PLACES_KEY}"
+
+class FlightBookingView(APIView):
+    def get(self, request, originLocationCode, destinationLocationCode, departureDate, adults):
+
+        # Validate required parameters
+        if not all([originLocationCode, destinationLocationCode, departureDate, adults]):
+            return JsonResponse({"error": "Missing required parameters."}, status=400)
+
+        try:
+            # Format departure date
+            try:
+                formatted_date = datetime.strptime(departureDate, "%Y-%m-%d").strftime("%Y-%m-%d")
+            except ValueError:
+                return JsonResponse({"error": "Invalid date format. Please use YYYY-MM-DD."}, status=400)
+
+            print(f"Converted departure date: {formatted_date}")
+
+            # Get access token from cache or request new one
+            access_token = cache.get('amadeus_access_token')
+            token_url = "https://test.api.amadeus.com/v1/security/oauth2/token"
+            token_data = {
+                "grant_type": "client_credentials",
+                "client_id": settings.AMAEDEUS_FLIGHT_KEY,
+                "client_secret": settings.AMAEDEUS_SECRET_KEY_TWO
+            }
+
+            if not access_token:
+                token_response = requests.post(token_url, data=token_data)
+
+                if token_response.status_code != 200:
+                    return JsonResponse(
+                        {"error": "Failed to authenticate with Amadeus API.", "details": token_response.json()},
+                        status=500
+                    )
+
+                token_json = token_response.json()
+                access_token = token_json.get('access_token')
+                expires_in = token_json.get('expires_in', 1799)
+
+                if not access_token:
+                    return JsonResponse({"error": "Authentication response did not include an access token."}, status=500)
+
+                cache.set('amadeus_access_token', access_token, timeout=expires_in)
+
+            print(f"Access Token: {access_token}")
+
+            # Prepare request to Amadeus API
+            amadeus_url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
+            params = {
+                "originLocationCode": originLocationCode,
+                "destinationLocationCode": destinationLocationCode,
+                "departureDate": formatted_date,
+                "adults": adults,
+                "max": 5
+            }
+            headers = {
+                "Authorization": f"Bearer {access_token}",
+            }
+
+            print(f"Amadeus URL: {amadeus_url}")
+            print(f"Parameters: {params}")
+            print(f"Headers: {headers}")
+
+            # Make the API request
+            flight_response = requests.get(amadeus_url, params=params, headers=headers)
+
+            if flight_response.status_code != 200:
+                print(f"Flight Response Error: {flight_response.status_code}")
+                print(f"Response Content: {flight_response.text}")
+                return JsonResponse({
+                    "error": f"Error from Amadeus API: {flight_response.status_code}",
+                    "details": flight_response.json()
+                }, status=flight_response.status_code)
+
+            flight_data = flight_response.json()
+            return JsonResponse(flight_data, safe=False)
+
+        except requests.exceptions.RequestException as e:
+            print(f"Error Response Content: {e.response.text if e.response else 'No Response Content'}")
+            return JsonResponse({"error": "Request exception occurred.", "details": str(e)}, status=500)
