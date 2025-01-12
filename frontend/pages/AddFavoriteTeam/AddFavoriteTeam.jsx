@@ -1,11 +1,14 @@
-
+import AddFavoriteTeamCard from "../../components/Cards/Pages/AddFavoriteTeam/AddFavoriteTeam";
+import { fetchAllNFLTeams } from "../../src/app/utilities";
 
 
 const AddFavoriteTeam = () => {
 
     return (
         <>
-            <h1>Add Favorite Team</h1>
+            <div className="card bg-base-100 w-full shadow-xl">
+                <AddFavoriteTeamCard />
+            </div>
 
         </>
     )

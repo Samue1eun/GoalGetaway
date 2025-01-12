@@ -11,6 +11,7 @@ import NFLStats from '../../pages/NFLStats/NFLStats'
 import Settings from '../../pages/Settings/Settings'
 import App from './App'
 import Hotels from "../../pages/MyTrips/Hotels";
+import AddFavoriteTeam from "../../pages/AddFavoriteTeam/AddFavoriteTeam";
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path:'/login/',
                 element: <Login />
+            },
+            {
+                path:'/addfavoriteteam/',
+                element: <AddFavoriteTeam />
             },
             {
                 path:'/mytrips/',

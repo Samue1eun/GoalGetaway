@@ -21,7 +21,7 @@ const RegisterForm = () => {
       const user = await userSignup(formData);
       if (user){ 
         setUser(user)
-        navigate('/'); // Redirect to the homepage upon successful login
+        navigate('/addfavoriteteam/'); // Redirect to the homepage upon successful login
       }
     }catch (error) {
       console.error('Error in "RegisterFrom.jsx": ', error.message);
