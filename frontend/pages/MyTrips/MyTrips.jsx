@@ -1,7 +1,5 @@
-import MyTripNavBar from '../../components/NavBar/MyTrips/MyTripsNavBar';
 import TripSearch from '../../components/Cards/Pages/MyTrips/TripSearch';
 import MyFlights from '../../components/Cards/Pages/MyTrips/MyFlights';
-import MyHotels from '../../components/Cards/Pages/MyTrips/MyHotels';
 import MyEvents from '../../components/Cards/Pages/MyTrips/MyEvents';
 import React, { useState } from "react";
 
@@ -11,7 +9,7 @@ const MyTrips = () => {
     const [originCode, setOriginCode] = useState("");
     const [destination, setDestination] = useState("");
     const [departureDate, setDepartureDate] = useState("");
-    const [numOfAdults, setNumOfAdults] = useState(1);
+    const [numOfAdults, setNumOfAdults] = useState(null);
 
     const handleFormDataFlights = (formData) => {
         setOriginCode(formData.originCode)
@@ -37,9 +35,6 @@ const MyTrips = () => {
                         departureDate={departureDate} 
                         numOfAdults={numOfAdults} 
                     />
-                </div>
-                <div className="w-full p-4 flex justify-center">
-                    <MyHotels hotels={hotels} />
                 </div>
                 <div className="w-full p-4 flex justify-center">
                     <MyEvents />

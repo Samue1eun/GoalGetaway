@@ -1,27 +1,10 @@
 import React, { useState } from "react";
 
 const TripSearch = ({onFormData}) => {
-  const [cityCode, setCityCode] = useState("");
   const [originCode, setOriginCode] = useState("");
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [numOfAdults, setNumOfAdults] = useState("");
-
-  const fetchHotels = async () => {
-    try {
-        const response = await fetch(`http://127.0.0.1:8000/api/v1/api_app/hotel_data/${cityCode}/`);
-        console.log("Fetching hotels...");
-        if (response.ok) {
-            const hotels = await response.json();
-            console.log("Hotels fetched successfully:", hotels);
-            onHotelsFetched(hotels);
-        } else {
-            console.error("Error fetching hotels:", response.statusText);
-        }
-    } catch (error) {
-        console.error("Error:", error);
-    }
-  };
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -36,31 +19,6 @@ const TripSearch = ({onFormData}) => {
 
     return (
       <form onSubmit={handleSubmit}>
-       <label className="input input-bordered flex items-center gap-2">
-        <input
-          type="text"
-          className="grow"
-          placeholder="Search Hotels by City Code"
-          onChange={(e) => setCityCode(e.target.value)}
-        /> 
-        <button
-          onClick={fetchHotels}
-          className="btn btn-circle btn-sm btn-primary"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-4 w-4"
-          >
-            <path
-              fillRule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </label>
 
       <div className="w-[550px] flex flex-col ">
 
@@ -117,7 +75,7 @@ const TripSearch = ({onFormData}) => {
             onChange={(e) => setNumOfAdults(Number(e.target.value))}
           />
         </label>
-        <input className="btn btn-primary w-60 mt-4 self-center" type="submit" value="Submit" />
+        <input className="btn btn-primary w-60 mt-10 self-center" type="submit" value="Submit" />
       </div>
     </form>
   );
