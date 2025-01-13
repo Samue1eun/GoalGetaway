@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { fetchAllNFLTeams } from '../../../../src/app/utilities';
+import { useNavigate } from 'react-router-dom';
+import { fetchAllNFLTeams, addTeamToUserFavorites } from '../../../../src/app/utilities';
 
 const AddFavoriteTeamCard = () => {
     const [teams, setTeams] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTeams = async () => {
@@ -26,6 +28,7 @@ const AddFavoriteTeamCard = () => {
         const result = await addTeamToUserFavorites(teamId);
         if (result) {
             alert('Team added to favorites!');
+            navigate('/home/')
         } else {
             alert('Failed to add team to favorites.');
         }

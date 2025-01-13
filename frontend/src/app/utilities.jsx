@@ -306,3 +306,23 @@ export const fetchAllNFLTeams = async () => {
     console.error("Error fetching NFL team display check 'fetchAllNFLTeams' function in utilities.jsx: ", error);
   }
 }
+
+///////////////////////-----ADD FAVORITE TEAM------------///////////////////////
+
+export const addTeamToUserFavorites = async (teamId) => {
+  let token = localStorage.getItem('token');
+
+  try {
+    if (token) {
+      api.defaults.headers.common['Authorization'] = `Token ${token}`;
+      let response = await api.post('users/add_favorite_team/', { team_id: teamId });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return null;
+      }
+    }
+  } catch (error) {
+    console.error('Error in "addTeamToUserFavorites" function. Check utilities.jsx:', error.message);
+  }
+};
