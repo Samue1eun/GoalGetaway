@@ -53,7 +53,7 @@ const TopSacks = () => {
     return (
         <>
             {sacksStats ? 
-                <div className="card bg-base-100 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 shadow-xl">
+                <div className="card bg-base-100 xl:w-full shadow-xl">
                     <figure className="px-10 pt-10">
                         <img
                             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
