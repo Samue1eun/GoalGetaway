@@ -12,7 +12,7 @@ import Settings from '../../pages/Settings/Settings'
 import App from './App'
 import Hotels from "../../pages/MyTrips/Hotels";
 import AddFavoriteTeam from "../../pages/AddFavoriteTeam/AddFavoriteTeam";
-
+import CheckoutPage from "../../pages/Checkout/CheckoutPage";
 
 const router = createBrowserRouter([
     {
@@ -70,7 +70,11 @@ const router = createBrowserRouter([
             {
                 path: '/hotels/',
                 element: <Hotels />
-            }
+            },
+            {
+                path: "/checkout/",
+                element: <CheckoutPage />
+            },
         ],
     },
 ])
