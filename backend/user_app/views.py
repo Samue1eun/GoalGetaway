@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
-from .models import User, Team  # Fix the import
+from .models import User
 from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -71,22 +71,3 @@ class Info(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data, status=HTTP_200_OK)
-        request.user.auth_token.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
-
-# Need to add in a Team Model?
-class AddFavoriteTeam(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        user = request.user
-        team_id = request.data.get('team_id')
-        try:
-            team = Team.objects.get(id=team_id)
-            user.favorite_teams.add(team)
-            user.save()
-            return Response({'message': 'Team added to favorites'}, status=HTTP_200_OK)
-        except Team.DoesNotExist:
-            return Response({'error': 'Team does not exist'}, status=HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            return Response({'error': str(e)}, status=HTTP_400_BAD_REQUEST)

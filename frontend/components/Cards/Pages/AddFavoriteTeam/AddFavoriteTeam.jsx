@@ -4,27 +4,24 @@ import { fetchAllNFLTeams, addTeamToUserFavorites } from '../../../../src/app/ut
 
 const AddFavoriteTeamCard = () => {
     const [teams, setTeams] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const stockNFLImage = 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/National_Football_League_logo.svg/1200px-National_Football_League_logo.svg.png';
+    const [currentSelectedTeam, setCurrentSelectedTeam] = useState(stockNFLImage);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useEffect(() => { 
+        setIsLoading(true);
         const fetchTeams = async () => {
             const data = await fetchAllNFLTeams();
+            console.log(data);
             setTeams(data);
+            setIsLoading(false);
         };
         fetchTeams();
     }, []);
 
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % teams.length);
-    };
-
-    const handlePrevious = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + teams.length) % teams.length);
-    };
-
     const handleAddFavorite = async () => {
-        const teamId = teams[currentIndex].TeamID;
+        const teamId = teams[index].TeamID;
         const result = await addTeamToUserFavorites(teamId);
         if (result) {
             alert('Team added to favorites!');
@@ -36,23 +33,42 @@ const AddFavoriteTeamCard = () => {
 
     return (
         <>
+            {!isLoading ? 
+            <>
             <h1 className="text-center text-3xl font-bold my-4">Add Favorite Team</h1>
             <div className="card bg-base-100 w-full shadow-xl">
                 <div className="card-body items-center text-center">
-                    {teams.length > 0 && (
+                    <div className="flex flex-col gap-12 mt-4">
                         <div className="flex flex-col items-center">
-                            <img src={teams[currentIndex].WikipediaLogoUrl} alt={teams[currentIndex].FullName} className="w-16 h-16" />
-                            <p className="text-xl">{teams[currentIndex].FullName}</p>
+                                    <img src={currentSelectedTeam.WikipediaLogoUrl ? currentSelectedTeam.WikipediaLogoUrl: currentSelectedTeam} className="w-16 h-16" />
+                                    <p className="text-xl">{currentSelectedTeam.FullName}</p>
                         </div>
-                    )}
-                    <button className="btn btn-outline" onClick={handleAddFavorite}>Add to Favorites</button>
-                    <div className="join grid grid-cols-2 mt-4">
-                        <button className="join-item btn btn-outline" onClick={handlePrevious}>Previous</button>
-                        <button className="join-item btn btn-outline" onClick={handleNext}>Next</button>
+                        <select className="select select-primary w-full max-w-xs"
+                            onChange={(e) =>
+                                            setCurrentSelectedTeam(
+                                                teams.find((team) => team.FullName === e.target.value)
+                                            )
+                                        }
+                        >
+                            <option disabled selected>Pick your favorite team</option>
+                            {teams.map((team, index) => (
+                                <>
+                                <option key={index}>{team.FullName}</option>
+                                </>
+                            ))}
+                        </select>
                     </div>
-
+                    <button className="btn btn-outline btn-primary" onClick={handleAddFavorite}>Add to Favorites</button>
                 </div>
             </div>
+            </>
+        :
+        <>
+            <div className="flex items-center justify-center h-80 w-full">
+            <span className="loading loading-ring loading-lg"></span>
+            </div>
+        </>
+        }
         </>
     );
 };

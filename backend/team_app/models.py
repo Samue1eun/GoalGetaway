@@ -7,5 +7,3 @@ class Team(models.Model):
     city = models.CharField(max_length=155)
     abbreviation = models.CharField(max_length=3, unique=True)
     logo_url = models.URLField(max_length=200, blank=True, null=True)
-
-    # location_name = models.ForeignKey()

@@ -315,14 +315,14 @@ export const addTeamToUserFavorites = async (teamId) => {
   try {
     if (token) {
       api.defaults.headers.common['Authorization'] = `Token ${token}`;
-      let response = await api.post('users/add_favorite_team/', { team_id: teamId });
+      let response = await api.post('users/favorite_team/', { "team_name": teamId });
       if (response.status === 200) {
         return response.data;
-      } else {
-        return null;
       }
     }
   } catch (error) {
-    console.error('Error in "addTeamToUserFavorites" function. Check utilities.jsx:', error.message);
+    console.error('Error in "addTeamToUserFavorites" function. Check utilities.jsx:', error);
   }
 };
+
+///////////////////////-----   ------------///////////////////////
