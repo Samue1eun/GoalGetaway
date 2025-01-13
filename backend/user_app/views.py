@@ -71,3 +71,38 @@ class Info(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data, status=HTTP_200_OK)
+
+class FavoriteTeam(TokenReq):
+    def post(self, request):
+        user = request.user
+        user.favorite_team_name = request.data["favorite_team_name"]
+        user.favorite_team_alias = request.data["favorite_team_alias"]
+        user.save()
+        return Response({
+            "favorite_team_name": user.favorite_team_name,
+            "favorite_team_alias": user.favorite_team_alias
+        }, status=HTTP_200_OK)
+    
+    def get(self, request):
+        user = request.user
+        return Response({
+            "favorite_team_name": user.favorite_team_name,
+            "favorite_team_alias": user.favorite_team_alias
+        }, status=HTTP_200_OK)
+
+    def put(self, request):
+        user = request.user
+        user.favorite_team_name = request.data["favorite_team_name"]
+        user.favorite_team_alias = request.data["favorite_team_alias"]
+        user.save()
+        return Response({
+            "favorite_team_name": user.favorite_team_name,
+            "favorite_team_alias": user.favorite_team_alias
+        }, status=HTTP_200_OK)
+    
+    def delete(self, request):
+        user = request.user
+        user.favorite_team_name = None
+        user.favorite_team_alias = None
+        user.save()
+        return Response(status=HTTP_204_NO_CONTENT)

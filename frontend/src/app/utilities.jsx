@@ -309,13 +309,13 @@ export const fetchAllNFLTeams = async () => {
 
 ///////////////////////-----ADD FAVORITE TEAM------------///////////////////////
 
-export const addTeamToUserFavorites = async (teamId) => {
+export const addTeamToUserFavorites = async (team) => {
   let token = localStorage.getItem('token');
 
   try {
     if (token) {
       api.defaults.headers.common['Authorization'] = `Token ${token}`;
-      let response = await api.post('users/favorite_team/', { "team_name": teamId });
+      let response = await api.post('users/favorite_team/', { "favorite_team_name": team.Name, "favorite_team_alias": team.key });
       if (response.status === 200) {
         return response.data;
       }
