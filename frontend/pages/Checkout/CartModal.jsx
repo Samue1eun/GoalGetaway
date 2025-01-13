@@ -1,6 +1,9 @@
-import React from 'react';
-
+import { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 const CartModal = ({ isOpen, onClose }) => {
+
+  const [user] = useState(useLoaderData());
+  console.log(user)
   return (
     <div className={`relative z-10 ${isOpen ? 'block' : 'hidden'}`} aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
       <div className="fixed inset-0 bg-gray-500/75 transition-opacity duration-300" aria-hidden="true"></div>

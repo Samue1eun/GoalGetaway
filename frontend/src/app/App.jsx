@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import { getNFLTeamInfo } from './utilities.jsx'
 import Navbar from '../../components/NavBar/Navbar.jsx';
@@ -9,6 +9,7 @@ const App = () => {
     // title imgs will be labeled as follows: 
     // WikipediaLogoUrl, WikipediaWordMarkUrl
     const [teamInfo, setTeamInfo] = useState([]);
+    const [user, setUser] = useState(useLoaderData());
 
     useEffect(() =>{
         const fetchTeamData = async() => {
@@ -24,7 +25,7 @@ const App = () => {
             <div className="min-h-screen w-full flex flex-col">
                 
                 <div className="w-full flex-grow">
-                <Outlet context={{teamInfo, setTeamInfo}} />
+                <Outlet context={{teamInfo, setTeamInfo, user, setUser}} />
                 </div>
             </div>
         </>
