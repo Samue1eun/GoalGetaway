@@ -11,9 +11,13 @@ const HotelSearch = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    setIsLoading(true);
     let response = await fetchHotels(cityCode)
     response = await fetchHotelDetails(response.data.slice(0, displayLimit))
-    setHotels(response)
+    setHotels(response);
+    if (response.length > 0) {
+      setIsLoading(false);
+    }
   }
 
   return(
@@ -50,6 +54,7 @@ const HotelSearch = () => {
         </label>
       </form>
       <div className='flex flex-col w-ful mt-20 gap-10 mb-20 justify-center items-center'>
+
         {hotels.length > 0 ? (
           hotels.map((hotelDetails, index) => (
             <div key={index} className="card card-normal w-96 h-[550px] card-bordered border-black mb-4">
@@ -68,9 +73,13 @@ const HotelSearch = () => {
               </div>
             </div>
           ))
-        ) : (
-         null
+        ) : 
+        (
+          null
         )}
+        {!isLoading ? null : 
+          <span className="loading loading-ring loading-lg"></span>
+        }
       </div>
     </>
   )

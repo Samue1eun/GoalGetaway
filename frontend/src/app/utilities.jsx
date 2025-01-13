@@ -279,3 +279,49 @@ export const fetchHotelDetails = async (hotelList) => {
   }
   return responseList
 }
+
+///////////////////////-----NFL TEAM DISPLAY (ONE TEAM)------------///////////////////////
+
+export const fetchNFLTeamDisplay = async (teamName) => {
+  try {
+    const response = await api.get(`api_app/nfl_teams/${teamName}/`);
+    if (response.status === 200) {
+      return response.data
+    }
+  } catch (error) {
+    console.error("Error fetching NFL team display check 'fetchNFLTeamDisplay' function in utilities.jsx: ", error);
+  }
+}
+
+///////////////////////-----NFL TEAM DISPLAY (ALL TEAMS)------------///////////////////////
+
+export const fetchAllNFLTeams = async () => {
+  try {
+    const response = await api.get(`api_app/nfl_teams/`);
+    if (response.status === 200) {
+      return response.data
+    }
+  } catch (error) {
+    console.error("Error fetching NFL team display check 'fetchAllNFLTeams' function in utilities.jsx: ", error);
+  }
+}
+
+///////////////////////-----ADD FAVORITE TEAM------------///////////////////////
+
+export const addTeamToUserFavorites = async (team) => {
+  let token = localStorage.getItem('token');
+
+  try {
+    if (token) {
+      api.defaults.headers.common['Authorization'] = `Token ${token}`;
+      let response = await api.post('users/favorite_team/', { "favorite_team_name": team.Name, "favorite_team_alias": team.key });
+      if (response.status === 200) {
+        return response.data;
+      }
+    }
+  } catch (error) {
+    console.error('Error in "addTeamToUserFavorites" function. Check utilities.jsx:', error);
+  }
+};
+
+///////////////////////-----   ------------///////////////////////
