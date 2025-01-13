@@ -63,11 +63,13 @@ const KickerPercentageCompletion = () => {
 
   return (
     <>
-      <h1 className="text-center text-3xl font-bold my-4">Top Kicker Completion Percentages</h1>
       <div className="card bg-base-100 xl:w-full shadow-xl">
-        <div className="card-body">
-          {kickerStats.map((playerData, index) => renderStatComp(playerData, index))}
-        </div>
+          <div className="card-body items-center text-center">
+              <h2 className="card-title">Top Field Goal Percentanges</h2>
+              <div className="w-full">
+                {kickerStats.map((playerData, index) => renderStatComp(playerData, index))}
+              </div>
+          </div>
       </div>
     </>
   );
