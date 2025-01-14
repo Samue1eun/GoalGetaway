@@ -22,16 +22,17 @@ const MyFlights = ({ originCode, destination, departureDate, numOfAdults }) => {
         {flightDetailsList.length > 0 ? (
           flightDetailsList.map((flightDetails, index) => (
             <li key={index} className="mb-4">
-              <div className="card border p-4">
-                <h3 className="font-semibold text-center">Flight ID: {flightDetails.id}</h3>
+              <div className="card glass border p-4">
+                <h3 className="card-title font-semibold self-center">Flight ID: {flightDetails.id}</h3>
                 <br/>
-                <p>
+                <p className="self-center">
                   <strong>Price:</strong> ${flightDetails.price.total}
                 </p>
-                <p>
+                <p className="self-center">
                   <strong>Duration:</strong>{" "}
                   {flightDetails.itineraries[0].duration.replace("PT", "").toLowerCase()}
                 </p>
+                <br/>
                 <p>
                   <strong>Departure:</strong>{"  "}
                   {flightDetails.itineraries[0].segments[0].departure.iataCode} @{"  "}
@@ -45,13 +46,8 @@ const MyFlights = ({ originCode, destination, departureDate, numOfAdults }) => {
                 {flightDetails.itineraries[0].segments.length > 1 ? 
                   <>
                     <br/>
-                    <p>
-                      <strong>Price:</strong> ${flightDetails.price.total}
-                    </p>
-                    <p>
-                      <strong>Duration:</strong>{" "}
-                      {flightDetails.itineraries[0].duration.replace("PT", "").toLowerCase()}
-                    </p>
+                    <p className="self-center font-bold">CONNECTIONS</p>
+                    <br/>
                     <p>
                       <strong>Departure:</strong>{"  "}
                       {flightDetails.itineraries[0].segments[1].departure.iataCode} @{"  "}

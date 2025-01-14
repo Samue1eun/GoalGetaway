@@ -21,8 +21,9 @@ const HotelSearch = () => {
   }
 
   return (
-    <>
-      <h1 className='text-4xl text-center mt-20'>Search Hotels</h1>
+
+    <div className="card glass w-[700px]">
+      <h1 className='text-4xl text-center mt-20 text-white'>Search Hotels</h1>
       <form onSubmit={handleSubmit} className='flex mt-20 justify-center'>
         <label className="input input-bordered flex items-center w-[550px] gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -59,7 +60,7 @@ const HotelSearch = () => {
         ) : (
           hotels.length > 0 ? (
             hotels.map((hotelDetails, index) => (
-              <div key={index} className="card card-normal w-1/4 h-[550px] card-bordered border-black mb-4">
+              <div key={index} className="card card-normal w-1/4 h-[550px] card-bordered mb-4">
                 <div className="card-body flex flex-col justify-between items-center">
                   <div className="flex-grow w-full">
                     <img
@@ -76,11 +77,11 @@ const HotelSearch = () => {
               </div>
             ))
           ) : (
-            <p>No hotels found.</p>
+            null
           )
         )}
       </div>
-    </>
+    </div>
   );
 };
 export default HotelSearch

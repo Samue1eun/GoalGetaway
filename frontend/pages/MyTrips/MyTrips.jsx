@@ -1,6 +1,7 @@
 import TripSearch from '../../components/Cards/Pages/MyTrips/TripSearch';
 import MyFlights from '../../components/Cards/Pages/MyTrips/MyFlights';
 import React, { useState } from "react";
+import airplaneLanding from "../../assets/airplane_landing.jpeg";
 
 
 const MyTrips = () => {
@@ -17,15 +18,13 @@ const MyTrips = () => {
     };
     
     return (
-        <div
-          className="relative h-screen w-screen overflow-hidden"
-          style={{
-            backgroundImage: "url('/assets/airplane-flying-over-majestic-snow-capped-mountains-under-a-cloudy-sky-during-daytime-free-photo.jpeg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="relative z-10 flex flex-col items-center justify-center h-full bg-black bg-opacity-50">
+      <div
+      className="hero flex justify-center justify-items-center min-h-screen w-full"
+      style={{ backgroundImage: `url(${airplaneLanding})` }}
+      >
+        <div className="hero-overlay justify-center justify-items-center w-full p-4 bg-transparent">
+          <div className="hero-content flex flex-col items-center">
+          <div className="relative z-10 flex flex-col items-center justify-center h-full">
             <h1 className="text-center text-3xl font-bold my-4 text-white">Search Flights</h1>
             <div className="w-full p-4 flex justify-center">
               <TripSearch onFormData={handleFormDataFlights} />
@@ -40,6 +39,8 @@ const MyTrips = () => {
             </div>
           </div>
         </div>
+      </div>
+    </div>
       );
     };
     
