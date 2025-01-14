@@ -22,7 +22,7 @@ const HotelSearch = () => {
 
   return (
 
-    <div className="card glass w-[700px]">
+    <div className="card glass w-[750px]">
       <h1 className='text-4xl text-center mt-20 text-white'>Search Hotels</h1>
       <form onSubmit={handleSubmit} className='flex mt-20 justify-center'>
         <label className="input input-bordered flex items-center w-[550px] gap-2">
@@ -54,13 +54,13 @@ const HotelSearch = () => {
           </button>
         </label>
       </form>
-      <div className='flex flex-wrap justify-center gap-4 mt-20 mb-20'>
+      <div className='flex flex-wrap justify-center gap-12 mt-20 mb-20'>
         {isLoading ? (
           <span className="loading loading-ring loading-lg"></span>
         ) : (
           hotels.length > 0 ? (
             hotels.map((hotelDetails, index) => (
-              <div key={index} className="card card-normal w-1/4 h-[550px] card-bordered mb-4">
+              <div key={index} className="card card-normal w-80 h-[600px] card-bordered mb-4 text-white">
                 <div className="card-body flex flex-col justify-between items-center">
                   <div className="flex-grow w-full">
                     <img

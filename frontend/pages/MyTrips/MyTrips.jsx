@@ -25,7 +25,6 @@ const MyTrips = () => {
         <div className="hero-overlay justify-center justify-items-center w-full p-4 bg-transparent">
           <div className="hero-content flex flex-col items-center">
           <div className="relative z-10 flex flex-col items-center justify-center h-full">
-            <h1 className="text-center text-3xl font-bold my-4 text-white">Search Flights</h1>
             <div className="w-full p-4 flex justify-center">
               <TripSearch onFormData={handleFormDataFlights} />
             </div>
