@@ -279,3 +279,44 @@ export const fetchHotelDetails = async (hotelList) => {
   }
   return responseList
 }
+
+///////////////////////-----Event CRUD------------///////////////////////
+export const createEvent = (eventData) => {
+  return axios.post('/api/events/', eventData, {
+      headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+  });
+};
+
+export const getAllEvents = () => {
+  return axios.get('/api/events/', {
+      headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+  });
+};
+
+export const getEventById = (eventId) => {
+  return axios.get(`/api/events/${eventId}/`, {
+      headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+  });
+};
+
+export const updateEvent = (eventId, eventData) => {
+  return axios.put(`/api/events/${eventId}/`, eventData, {
+      headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+  });
+};
+
+export const deleteEvent = (eventId) => {
+  return axios.delete(`/api/events/${eventId}/`, {
+      headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+  });
+};

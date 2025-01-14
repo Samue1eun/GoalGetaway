@@ -10,8 +10,9 @@ import SportsNews from '../../pages/SportsNews/SportsNews'
 import NFLStats from '../../pages/NFLStats/NFLStats'
 import Settings from '../../pages/Settings/Settings'
 import App from './App'
-import Hotels from "../../pages/MyTrips/Hotels";
-
+import Hotels from "../../pages/MyTrips/Hotels"; 
+import EventForm from '../../pages/MyEvents/EventForm';
+import EditEventForm from '../../pages/MyEvents/EditEventForm';
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
                 element: <MyEvents />
             },
             {
+                path: '/myevents/create',
+                element: <EventForm />
+            },
+            {
+                path: '/myevents/edit/:eventId',
+                element: <EditEventForm />
+            },
+            {
                 path:'/myfavoriteteam/',
                 element: <MyFavoriteTeam />
             },
@@ -65,7 +74,7 @@ const router = createBrowserRouter([
             {
                 path: '/hotels/',
                 element: <Hotels />
-            }
+            },
         ],
     },
 ])
