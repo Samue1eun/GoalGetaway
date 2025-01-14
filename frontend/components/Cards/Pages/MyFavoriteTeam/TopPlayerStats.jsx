@@ -9,7 +9,6 @@ const TopPlayerStats = () => {
     const getNFLTopStats = async() =>{
       try{
         const data = await getNFLTopPlayersStatic()
-        console.log(data)
         setTopStats(data)
       }catch(error){
         console.error(`Error fetching player statistic: ${error}`)

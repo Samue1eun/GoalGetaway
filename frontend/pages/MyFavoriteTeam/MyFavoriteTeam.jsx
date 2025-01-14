@@ -6,7 +6,7 @@ import footballFieldBackground from "../../assets/football-stadium-bg.jpg";
 
 
 const MyFavoriteTeam = () => {
-    const [favoriteTeam, setFavoriteTeam] = useState("Dolphins");
+ 
 
     return (
         <>
@@ -17,7 +17,7 @@ const MyFavoriteTeam = () => {
             >
                 <div className="hero-overlay justify-center justify-items-center w-full p-4">
 
-                    <div className="hero-content flex flex-col items-center">
+                    <div className="hero-content w-full flex flex-col items-center">
 
                         {/* Main content section */}
                         <div className="w-full p-4 flex justify-center">
@@ -28,13 +28,13 @@ const MyFavoriteTeam = () => {
                                     <MostRecentScores />
                                 </div>
                                 
-                                <Schedule favoriteTeam={favoriteTeam} />
+                                <Schedule />
                             </div>
                         </div>
 
-                        <div className="flex flex-col items-center space-y-10 w-full max-w-screen-xl">
+                        {/* <div className="flex flex-col items-center space-y-10 w-full max-w-screen-xl">
                             <TopPlayerStats />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

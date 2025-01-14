@@ -31,6 +31,7 @@ const Schedule = () => {
   const renderRound = (roundName, matches) => {
 
     return (
+      
       <div className="relative flex flex-col items-center space-y-8">
         {/* Round Title */}
         <h2 className="text-xl font-semibold mb-4">{roundName}</h2>
@@ -94,9 +95,9 @@ const Schedule = () => {
   } else {
     matches = {
       "Wild Card Round": bracket[0]["bracketed"][0]["games"],
-      "Divisional Round": bracket[1]["games"],
-      "Conference Championship Round": bracket[2]["games"],
-      "Super Bowl": bracket[3]["games"]
+      "Divisional Round": bracket[1]["bracketed"][0]["games"],
+      "Conference Championship Round": bracket[2]["games"], //Note: MUST BE UPDATED TO MATCH WEEK ABOVE
+      "Super Bowl": bracket[3]["games"] //Note: MUST BE UPDATED TO MATCH WEEK ABOVE
     };
   }
 
