@@ -22,7 +22,7 @@ const HotelSearch = () => {
 
   return (
 
-    <div className="card glass w-[750px]">
+    <div className="card glass bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 shadow-xl w-[750px] pb-10">
       <h1 className='text-4xl text-center mt-20 text-white'>Search Hotels</h1>
       <form onSubmit={handleSubmit} className='flex mt-20 justify-center'>
         <label className="input input-bordered flex items-center w-[550px] gap-2">

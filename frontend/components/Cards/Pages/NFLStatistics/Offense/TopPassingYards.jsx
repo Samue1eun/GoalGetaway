@@ -18,7 +18,7 @@ const TopPassingYards = () => {
 
     const renderStatComp = (playerData, index) => {
         return (
-            <div key={playerData.player.id} className="collapse collapse-arrow bg-base-200 mb-2">
+            <div key={playerData.player.id} className="collapse collapse-arrow bg-opacity-10 backdrop-blur-lg border border-black border-opacity-30 shadow-xl mb-2">
                 <input 
                     type="checkbox" 
                     name="passing-accordion"
@@ -56,7 +56,7 @@ const TopPassingYards = () => {
     return (
         <>
             {passingStats ? 
-                <div className="card bg-base-100 xl:w-full shadow-xl">
+                <div className="card glass bg-opacity-10 backdrop-blur-lg border border-white border-opacity-30 shadow-xl w-[500px]">
                     <div className="card-body items-center text-center">
                         <h2 className="card-title">Top Passing Yards</h2>
                         <div className="w-full">

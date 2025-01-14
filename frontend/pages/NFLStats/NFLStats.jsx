@@ -16,13 +16,12 @@ import TopTackles from "../../components/Cards/Pages/NFLStatistics/Defense/TopTa
 const NFLStats = () => {
     return (
         <>
-
             <div
                 className="hero flex justify-center justify-items-center min-h-screen w-full"
                 style={{ backgroundImage: `url(${footballFieldBackground})` }}
             >
-                <div className="flex flex-col items-center">
-                    <div className="w-full md:w-3/4 p-4 flex justify-between">
+                <div className="flex flex-col items-center w-full md:w-3/4 p-4">
+                    <div className="flex flex-col md:flex-row justify-between gap-8 w-full">
                         <div className="w-full md:w-1/2 p-4">
                             <h2 className="text-center text-2xl font-bold my-4">Offense</h2>
                             <div className="p-6">
@@ -54,7 +53,8 @@ const NFLStats = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
+
 
 export default NFLStats;

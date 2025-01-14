@@ -20,7 +20,7 @@ const TripSearch = ({onFormData}) => {
     return (
       <form onSubmit={handleSubmit}>
 
-      <div className="card glass w-[700px] pb-10">
+      <div className="card glass bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 shadow-xl w-[700px] pb-10">
         <h1 className='text-4xl text-center mt-20 text-white'>Search Flights</h1>
 
         {/* Origin Code input bar */}
