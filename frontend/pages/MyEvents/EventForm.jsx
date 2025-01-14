@@ -1,4 +1,3 @@
-// components/forms/EventForm/EventForm.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createEvent } from "../../src/app/utilities";
@@ -21,10 +20,11 @@ const EventForm = () => {
             'description': description
         };
         try {
-            await createEvent(formData);
+            const response = await createEvent(formData);
+            console.log('Event created:', response); // Add this
             navigate('/myevents/');
         } catch (error) {
-            console.error('Error in "EventForm.jsx": ', error.message);
+            console.error('Error in "EventForm.jsx": ', error);
         }
     };
 

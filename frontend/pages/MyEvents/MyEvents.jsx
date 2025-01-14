@@ -1,9 +1,11 @@
+import EventList from '../../components/Cards/Pages/Events/EventList';
 
 const MyEvents = () => {
     return (
-        <h1>My Events</h1>
-    )
-
+        <>
+            <EventList />
+        </>
+    );
 }
 
 export default MyEvents;

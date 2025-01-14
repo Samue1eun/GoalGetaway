@@ -281,42 +281,45 @@ export const fetchHotelDetails = async (hotelList) => {
 }
 
 ///////////////////////-----Event CRUD------------///////////////////////
+const BASE_URL = 'http://127.0.0.1:8000';
+
 export const createEvent = (eventData) => {
-  return axios.post('/api/events/', eventData, {
-      headers: {
-          'Authorization': `Token ${localStorage.getItem('token')}`
-      }
-  });
+    console.log('Creating event with data:', eventData);
+    return axios.post(`${BASE_URL}/api/v1/events/`, eventData, {
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`
+        }
+    });
 };
 
 export const getAllEvents = () => {
-  return axios.get('/api/events/', {
-      headers: {
-          'Authorization': `Token ${localStorage.getItem('token')}`
-      }
-  });
+    return axios.get(`${BASE_URL}/api/v1/events/`, {
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`
+        }
+    });
 };
 
 export const getEventById = (eventId) => {
-  return axios.get(`/api/events/${eventId}/`, {
-      headers: {
-          'Authorization': `Token ${localStorage.getItem('token')}`
-      }
-  });
+    return axios.get(`${BASE_URL}/api/v1/events/${eventId}/`, {
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`
+        }
+    });
 };
 
 export const updateEvent = (eventId, eventData) => {
-  return axios.put(`/api/events/${eventId}/`, eventData, {
-      headers: {
-          'Authorization': `Token ${localStorage.getItem('token')}`
-      }
-  });
+    return axios.put(`${BASE_URL}/api/v1/events/${eventId}/`, eventData, {
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`
+        }
+    });
 };
 
 export const deleteEvent = (eventId) => {
-  return axios.delete(`/api/events/${eventId}/`, {
-      headers: {
-          'Authorization': `Token ${localStorage.getItem('token')}`
-      }
-  });
+    return axios.delete(`${BASE_URL}/api/v1/events/${eventId}/`, {
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`
+        }
+    });
 };
