@@ -13,11 +13,15 @@ import App from './App'
 import Hotels from "../../pages/MyTrips/Hotels"; 
 import EventForm from '../../pages/MyEvents/EventForm';
 import EditEventForm from '../../pages/MyEvents/EditEventForm';
+import { getInfo } from './utilities';
+import AddFavoriteTeam from "../../pages/AddFavoriteTeam/AddFavoriteTeam";
+import CheckoutPage from "../../pages/Checkout/CheckoutPage";
 
 const router = createBrowserRouter([
     {
         path:"/",
         element: <App/>,
+        loader: getInfo,
         children:[
             {
                 index: true,
@@ -36,6 +40,10 @@ const router = createBrowserRouter([
                 element: <Login />
             },
             {
+                path:'/addfavoriteteam/',
+                element: <AddFavoriteTeam />
+            },
+            {
                 path:'/mytrips/',
                 element: <MyTrips />
             },
@@ -44,11 +52,11 @@ const router = createBrowserRouter([
                 element: <MyEvents />
             },
             {
-                path: '/myevents/create',
+                path: '/myevents/create/',
                 element: <EventForm />
             },
             {
-                path: '/myevents/edit/:eventId',
+                path: '/myevents/edit/:eventId/',
                 element: <EditEventForm />
             },
             {
@@ -74,6 +82,10 @@ const router = createBrowserRouter([
             {
                 path: '/hotels/',
                 element: <Hotels />
+            },
+            {
+                path: "/checkout/",
+                element: <CheckoutPage />
             },
         ],
     },

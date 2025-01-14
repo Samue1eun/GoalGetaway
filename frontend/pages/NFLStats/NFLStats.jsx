@@ -1,4 +1,5 @@
 import NFLStatsNavBar from "../../components/NavBar/NFL Stats/NFLStatsNavBar";
+import footballFieldBackground from "../../assets/football-stadium-bg.jpg";
 // import TopLeaguePlayers from "../../components/Cards/Pages/NFLStatistics/TopLeaguePlayers";
 // import TopOffensivePlayers from "../../components/Cards/Pages/NFLStatistics/TopOffensivePlayers";
 // import TopDefensivePlayers from "../../components/Cards/Pages/NFLStatistics/TopDefensivePlayers";
@@ -15,34 +16,39 @@ import TopTackles from "../../components/Cards/Pages/NFLStatistics/Defense/TopTa
 const NFLStats = () => {
     return (
         <>
-            <h1 className="text-center text-3xl font-bold my-4">NFL Statistics</h1>
-            <div className="flex flex-col items-center">
-                <div className="w-full md:w-3/4 p-4 flex justify-between">
-                    <div className="w-full md:w-1/2 p-4">
-                        <h2 className="text-center text-2xl font-bold my-4">Offense</h2>
-                        <div className="p-6">
-                            <TopPassingYards />
+
+            <div
+                className="hero flex justify-center justify-items-center min-h-screen w-full"
+                style={{ backgroundImage: `url(${footballFieldBackground})` }}
+            >
+                <div className="flex flex-col items-center">
+                    <div className="w-full md:w-3/4 p-4 flex justify-between">
+                        <div className="w-full md:w-1/2 p-4">
+                            <h2 className="text-center text-2xl font-bold my-4">Offense</h2>
+                            <div className="p-6">
+                                <TopPassingYards />
+                            </div>
+                            <div className="p-6">
+                                <TopRushingYards />
+                            </div>
+                            <div className="p-6">
+                                <TopReceivingYards />
+                            </div>
+                            <div className="p-6">
+                                <KickerPercentageCompletion />
+                            </div>
                         </div>
-                        <div className="p-6">
-                            <TopRushingYards />
-                        </div>
-                        <div className="p-6">
-                            <TopReceivingYards />
-                        </div>
-                        <div className="p-6">
-                            <KickerPercentageCompletion />
-                        </div>
-                    </div>
-                    <div className="w-full md:w-1/2 p-4">
-                        <h2 className="text-center text-2xl font-bold my-4">Defense</h2>
-                        <div className="p-6">
-                            <TopInterceptions />
-                        </div>
-                        <div className="p-6">
-                            <TopSacks />
-                        </div>
-                        <div className="p-6">
-                            <TopTackles />
+                        <div className="w-full md:w-1/2 p-4">
+                            <h2 className="text-center text-2xl font-bold my-4">Defense</h2>
+                            <div className="p-6">
+                                <TopInterceptions />
+                            </div>
+                            <div className="p-6">
+                                <TopSacks />
+                            </div>
+                            <div className="p-6">
+                                <TopTackles />
+                            </div>
                         </div>
                     </div>
                 </div>
