@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllEvents, deleteEvent } from "../../../../src/app/utilities";
 
+
 const EventList = () => {
     const [events, setEvents] = useState([]);  // Initialize as empty array instead of null
     const navigate = useNavigate();
@@ -36,53 +37,49 @@ const EventList = () => {
     };
 
     return (
-        <>
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="card glass w-96">
-                    <div className="card-body">
-                        <h2 className="card-title">My Events</h2>
-                        <button 
-                            className="btn btn-primary mb-4" 
-                            onClick={() => navigate('/myevents/create')}
-                        >
-                            Create New Event
-                        </button>
-                        {Array.isArray(events) && events.length > 0 ? (
-                            events.map((event) => (
-                                <div key={event.id} className="collapse collapse-arrow bg-base-200 mb-2">
-                                    <input type="checkbox" /> 
-                                    <div className="collapse-title text-xl font-medium">
-                                        {event.name}
-                                    </div>
-                                    <div className="collapse-content">
-                                        <p>Date: {event.date}</p>
-                                        <p>Location: {event.location}</p>
-                                        <p>Game: {event.game_of_the_day}</p>
-                                        <p>Description: {event.description}</p>
-                                        <div className="card-actions justify-end mt-4">
-                                            <button 
-                                                onClick={() => navigate(`/myevents/edit/${event.id}`)}
-                                                className="btn btn-sm btn-primary"
-                                            >
-                                                Edit
-                                            </button>
-                                            <button 
-                                                onClick={() => handleDelete(event.id)}
-                                                className="btn btn-sm btn-error"
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </div>
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="card glass bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 shadow-xl w-[650px] pb-10">
+                <h1 className='text-4xl text-center mt-20 text-white mb-10'>My Events</h1>
+                <button 
+                    className="btn btn-primary mb-10 w-[155px] mx-auto" 
+                    onClick={() => navigate('/myevents/create')}
+                >
+                    Create New Event
+                </button>
+                {Array.isArray(events) && events.length > 0 ? (
+                    events.map((event) => (
+                        <div key={event.id} className="collapse collapse-arrow bg-base-200 mb-2 w-[550px] mx-auto">
+                            <input type="checkbox" /> 
+                            <div className="collapse-title text-xl font-medium">
+                                {event.name}
+                            </div>
+                            <div className="collapse-content">
+                                <p>Date: {event.date}</p>
+                                <p>Location: {event.location}</p>
+                                <p>Game: {event.game_of_the_day}</p>
+                                <p>Description: {event.description}</p>
+                                <div className="card-actions justify-end mt-4">
+                                    <button 
+                                        onClick={() => navigate(`/myevents/edit/${event.id}`)}
+                                        className="btn btn-sm btn-primary"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button 
+                                        onClick={() => handleDelete(event.id)}
+                                        className="btn btn-sm btn-error"
+                                    >
+                                        Delete
+                                    </button>
                                 </div>
-                            ))
-                        ) : (
-                            <p>No events found. Create a new event to get started!</p>
-                        )}
-                    </div>
-                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-center">No events found.</p>
+                )}
             </div>
-        </>
+        </div>
     );
 };
 
