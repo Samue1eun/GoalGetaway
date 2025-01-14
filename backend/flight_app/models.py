@@ -8,9 +8,9 @@ class Flight(models.Model):
   location_in = models.CharField(max_length=255, blank=False)
   location_out = models.CharField(max_length=255, blank=False)
   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='flights')
-  connecting_in_date = models.CharField(default="no connection")
-  connecting_out_date = models.CharField(default="no connection")
-  connecting_location_in = models.CharField(max_length=255, default="no connection")
-  connecting_location_out = models.CharField(max_length=255, default="no connection")
+  connecting_in_date = models.CharField(default="no connection", null=True)
+  connecting_out_date = models.CharField(default="no connection", null=True)
+  connecting_location_in = models.CharField(max_length=255, default="no connection", null=True)
+  connecting_location_out = models.CharField(max_length=255, default="no connection", null=True)
 
   # add in airline image
