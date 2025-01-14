@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchAllNFLTeams, addTeamToUserFavorites } from '../../../../src/app/utilities';
+import { fetchAllNFLTeams, addTeamToUserFavorites } from '../../../src/app/utilities';
 
 const AddFavoriteTeamCard = () => {
     const [teams, setTeams] = useState([]);
@@ -35,10 +35,9 @@ const AddFavoriteTeamCard = () => {
         <>
             {!isLoading ? 
             <>
-
-            <div className="card glass w-96 shadow-xl">
+            <h1 className="text-center text-3xl font-bold my-4">Add Favorite Team</h1>
+            <div className="card bg-base-100 w-full shadow-xl">
                 <div className="card-body items-center text-center">
-                <h1 className="text-center text-3xl font-bold my-4">Add Favorite Team</h1>
                     <div className="flex flex-col gap-12 mt-4">
                         <div className="flex flex-col items-center">
                                     <img src={currentSelectedTeam.WikipediaLogoUrl ? currentSelectedTeam.WikipediaLogoUrl: currentSelectedTeam} className="w-16 h-16" />

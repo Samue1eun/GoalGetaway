@@ -10,6 +10,7 @@ import SportsNews from '../../pages/SportsNews/SportsNews'
 import NFLStats from '../../pages/NFLStats/NFLStats'
 import Settings from '../../pages/Settings/Settings'
 import App from './App'
+import { getInfo } from './utilities';
 import Hotels from "../../pages/MyTrips/Hotels";
 import AddFavoriteTeam from "../../pages/AddFavoriteTeam/AddFavoriteTeam";
 import CheckoutPage from "../../pages/Checkout/CheckoutPage";
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     {
         path:"/",
         element: <App/>,
+        loader: getInfo,
         children:[
             {
                 index: true,
