@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createEvent } from "../../src/app/utilities";
+import { createEvent } from "../../../src/app/utilities";
 
 const EventForm = () => {
     const navigate = useNavigate();

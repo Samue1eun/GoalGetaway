@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEventById, updateEvent } from "../../src/app/utilities";
+import { getEventById, updateEvent } from "../../../src/app/utilities";
 
 const EditEventForm = () => {
     const { eventId } = useParams();
