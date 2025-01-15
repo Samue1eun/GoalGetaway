@@ -1,11 +1,13 @@
 import { useCart } from '../../src/app/CartContext';
 import { useState, useEffect } from 'react';
-import southWestLogo from '../../assets/southwest_airlines.png';
-import { Link } from 'react-router-dom'
+import southWestLogo from '../../assets/sw-logo.jpeg';
+import { useNavigate } from 'react-router-dom'
+
 
 const CartModal = ({ isOpen, onClose }) => {
   const { cart, removeFromCart } = useCart();
   const [filteredCart, setFilteredCart] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const newFilteredCart = [];
@@ -20,6 +22,11 @@ const CartModal = ({ isOpen, onClose }) => {
     }
     setFilteredCart(newFilteredCart);
   }, [cart]);
+
+  const handleCheckout = () => {
+    navigate('/checkout', { state: { filteredCart } });
+    onClose(); // Close modal when navigating
+  };
 
   const handleRemoveFromCart = (itemId) => {
     removeFromCart(itemId);
@@ -53,9 +60,10 @@ const CartModal = ({ isOpen, onClose }) => {
                         {filteredCart.length > 0 ? (
                           filteredCart.map((item, index) => (
                             <li key={index} className="flex py-6">
-                              <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                <img src={item.image_url} alt="Item" className="size-full object-cover" />
+                             <div className="w-[150px] h-[150px] shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                <img src={item.image_url} className="w-full h-full object-cover" />
                               </div>
+
                               <div className="ml-4 flex flex-1 flex-col">
                                 <div>
                                   <div className="flex justify-between text-base font-medium text-gray-900">
@@ -83,9 +91,14 @@ const CartModal = ({ isOpen, onClose }) => {
                     <p>Subtotal</p>
                     <p>${(filteredCart.reduce((total, item) => total + (item.price * 100), 0) / 100).toFixed(2)}</p>
                     </div>
-                  <div className="mt-6">
-                    <Link to='/checkout/' onClick={onClose} className="flex items-center justify-center mb-6 rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</Link>
-                  </div>
+                    <div className="mt-6">
+                      <button
+                        onClick={handleCheckout} // Use navigate programmatically
+                        className="flex items-center w-full justify-center mb-6 rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                      >
+                        Checkout
+                      </button>
+                    </div>
                 </div>
               </div>
             </div>
