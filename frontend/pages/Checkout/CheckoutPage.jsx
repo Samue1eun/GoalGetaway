@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import backgroundImg from '../../assets/sunset_football_field.jpg'; // Import background image
+import { createTrip } from '../../src/app/utilities';
 
 const CheckoutPage = () => {
   const location = useLocation();
@@ -12,10 +13,19 @@ const CheckoutPage = () => {
   const totalPrice = filteredCart.reduce((total, item) => total + (Number(item.price) || 0), 0);
 
   // Handle Order Placement
-  const handlePlaceOrder = (e) => {
+  const handlePlaceOrder = async (e) => {
     e.preventDefault(); // Prevent form submission
+    for(let i = 0; i < filteredCart.length; i++){
+      let formData = {
+        "name" : filteredCart[i].name,
+        "image_url": filteredCart[i].image_url,
+        "price": filteredCart[i].price 
+      }
+      await createTrip(formData)
+    }
     setOrderPlaced(true); // Set orderPlaced to true when the button is clicked
   };
+  console.log(filteredCart)
 
   return (
     <div

@@ -79,7 +79,7 @@ export const logOut = async() => {
 export const getInfo = async() => {
 
   let token = localStorage.getItem('token')
-
+  console.log(token)
   try{
     if(token){
       api.defaults.headers.common['Authorization'] = `Token ${token}`
@@ -367,4 +367,43 @@ export const addTeamToUserFavorites = async (team) => {
   }
 };
 
-///////////////////////-----   ------------///////////////////////
+///////////////////////-----ADD TO USER TRIPS------------///////////////////////
+
+export const createTrip = async (formData) =>{
+  console.log(formData)
+  let token = localStorage.getItem('token');
+  const { name, image_url, price } = formData
+  console.log(name, price, image_url)
+  try{
+    if(token){
+      api.defaults.headers.common['Authorization'] = `Token ${token}`;
+      let response = await api.post(`trips/`,
+        {
+          "name" : name,
+          "image_url": image_url,
+          "price": price
+        }
+      )
+      if(response.status === 201){
+          return response.data
+      }
+    }
+  }catch (error){
+    console.error('Error in "createTrip" function. Check utilities.jsx:', error);
+  }
+}
+
+///////////////////////-----DELETE USER TRIPS------------///////////////////////
+
+export const deleteTrip = async (tripId) =>{
+  let token = localStorage.getItem('token');
+  try{
+    if(token){
+      api.defaults.headers.common['Authorization'] = `Token ${token}`;
+      let response = await api.delete(`trips/${tripId}/`);
+      return response.data
+    }
+  }catch(error){
+    console.error('Error in "deleteTrip" function. Check utilities.jsx:', error);
+  }
+}

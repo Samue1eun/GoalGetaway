@@ -55,7 +55,7 @@ const Navbar = () => {
           </button>
 
           <NightAndDarkModeToggle />
-          <SettingsIconPageDirectory />
+
           {cartCount > 0 && (
             <div className="absolute top-7 right-40 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               {cartCount}
