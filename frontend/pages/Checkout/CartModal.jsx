@@ -1,18 +1,18 @@
 import { useCart } from '../../src/app/CartContext';
 import { useState, useEffect } from 'react';
 import southWestLogo from '../../assets/southwest_airlines.png';
+import { Link } from 'react-router-dom'
 
 const CartModal = ({ isOpen, onClose }) => {
   const { cart, removeFromCart } = useCart();
   const [filteredCart, setFilteredCart] = useState([]);
-  console.log(cart);
 
   useEffect(() => {
     const newFilteredCart = [];
     if (cart.length > 0) {
       cart.forEach(item => {
         if (item.business_status) {
-          newFilteredCart.push({ id: item.place_id, name: item.name, image_url: item.image_url, price: 250 });
+          newFilteredCart.push({ id: item.place_id, name: item.name, image_url: item.image_url, price: 250.00 });
         } else if (item.itineraries) {
           newFilteredCart.push({ id: item.id, name: "Southwest Airlines", price: item.price.total, image_url: southWestLogo });
         }
@@ -81,10 +81,10 @@ const CartModal = ({ isOpen, onClose }) => {
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <p>Subtotal</p>
-                    <p>${filteredCart.reduce((total, item) => total + item.price, 0)}</p>
-                  </div>
+                    <p>${(filteredCart.reduce((total, item) => total + (item.price * 100), 0) / 100).toFixed(2)}</p>
+                    </div>
                   <div className="mt-6">
-                    <a href="#" className="flex items-center justify-center mb-6 rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                    <Link to='/checkout/' onClick={onClose} className="flex items-center justify-center mb-6 rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</Link>
                   </div>
                 </div>
               </div>
