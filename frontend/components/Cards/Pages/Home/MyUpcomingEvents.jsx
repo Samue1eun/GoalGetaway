@@ -37,8 +37,8 @@ const MyUpcomingEvents = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="card glass bg-opacity-10 backdrop-blur-sm border border-white border-opacity-30 shadow-xl w-[650px] pb-10">
+        <div className="flex justify-start grow overflow-y-auto max-h-[700px]">
+            <div className="card glass bg-opacity-10  backdrop-blur-sm border border-white border-opacity-30 shadow-xl w-[650px] pb-10">
                 <h1 className='text-4xl text-center mt-20 text-white mb-10'>My Upcoming Events</h1>
 
                 {Array.isArray(events) && events.length > 0 ? (

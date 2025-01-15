@@ -39,7 +39,6 @@ const Navbar = () => {
         <Link to="/mytrips/" className="btn btn-ghost hover:bg-transparent text-xl">Flights</Link>
         <Link to="/hotels/" className="btn btn-ghost hover:bg-transparent text-xl">Hotels</Link>
         <Link to="/myevents/" className="btn btn-ghost hover:bg-transparent text-xl">Events</Link>
-        <Link to="/myfavoriteteam/" className="btn btn-ghost hover:bg-transparent text-xl">NFL Insight</Link>
         <Link to="/nflstatistics/" className="btn btn-ghost hover:bg-transparent text-xl">NFL Statistics</Link>
 
         <div className="flex w-full gap-6 justify-end p-4">
