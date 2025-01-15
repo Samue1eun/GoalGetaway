@@ -1,5 +1,5 @@
 import HotelSearch from "../../components/Cards/Pages/MyTrips/HotelSearch"
-import CartModal from "../Checkout/CartModal"
+import CartModal from "../../pages/Checkout/CartModal"
 import seattleStadium from "../../assets/seattle_football_stadium.jpg"
 
 

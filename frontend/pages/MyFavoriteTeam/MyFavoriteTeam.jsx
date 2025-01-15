@@ -1,8 +1,8 @@
-import TopPlayerStats from '../../components/Cards/Pages/MyFavoriteTeam/TopPlayerStats';
+// import TopPlayerStats from '../../components/Cards/Pages/MyFavoriteTeam/TopPlayerStats';
 import MostRecentScores from '../../components/Cards/Pages/MyFavoriteTeam/MostRecentScores';
-import Schedule from '../../components/Cards/Pages/MyFavoriteTeam/Schedule';
+// import Schedule from '../../components/Cards/Pages/MyFavoriteTeam/Schedule';
 import { useState } from 'react';
-import footballFieldBackground from "../../assets/football-stadium-bg.jpg";
+import footballFieldBackground from "../../assets/sunset_football_field.jpg";
 
 
 const MyFavoriteTeam = () => {
@@ -15,7 +15,7 @@ const MyFavoriteTeam = () => {
                 className="hero flex justify-center justify-items-center min-h-screen w-full"
                 style={{ backgroundImage: `url(${footballFieldBackground})` }}
             >
-                <div className="hero-overlay justify-center justify-items-center w-full p-4">
+                <div className="hero-overlay justify-center justify-items-center w-full p-4 bg-transparent">
 
                     <div className="hero-content w-full flex flex-col items-center">
 
@@ -28,7 +28,7 @@ const MyFavoriteTeam = () => {
                                     <MostRecentScores />
                                 </div>
                                 
-                                <Schedule />
+                                {/* <Schedule /> */}
                             </div>
                         </div>
 

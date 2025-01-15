@@ -94,10 +94,10 @@ const Schedule = () => {
     return <p className="text-gray-500 text-center">No playoff data available.</p>;
   } else {
     matches = {
-      "Wild Card Round": bracket[0]["bracketed"][0]["games"],
-      "Divisional Round": bracket[1]["bracketed"][0]["games"],
-      "Conference Championship Round": bracket[2]["games"], //Note: MUST BE UPDATED TO MATCH WEEK ABOVE
-      "Super Bowl": bracket[3]["games"] //Note: MUST BE UPDATED TO MATCH WEEK ABOVE
+      "Wild Card Round": (bracket[0]["bracketed"][0]["games"] ? bracket[0]["bracketed"][0]["games"] : bracket[0]["games"]),
+      "Divisional Round": (bracket[1]["bracketed"][0]["games"] ? bracket[1]["bracketed"][0]["games"] : bracket[1]["games"]),
+      "Conference Championship Round": (bracket[2]["bracketed"][0]["games"] ? bracket[2]["bracketed"][0]["games"] : bracket[2]["games"]),
+      "Super Bowl": (bracket[3]["bracketed"][0]["games"] ? bracket[3]["bracketed"][0]["games"] : bracket[3]["games"]),
     };
   }
 

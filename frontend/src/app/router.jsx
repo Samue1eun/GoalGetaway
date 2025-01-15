@@ -16,11 +16,17 @@ import EditEventForm from '../../pages/MyEvents/EditEventForm';
 import { getInfo } from './utilities';
 import AddFavoriteTeam from "../../pages/AddFavoriteTeam/AddFavoriteTeam";
 import CheckoutPage from "../../pages/Checkout/CheckoutPage";
+import CartModal from "../../pages/Checkout/CartModal";
+import { CartProvider } from '../../src/app/CartContext'; // Import CartProvider
 
 const router = createBrowserRouter([
     {
         path:"/",
-        element: <App/>,
+        element: (
+            <CartProvider>
+            <App/>
+            </CartProvider>
+        ),
         loader: getInfo,
         children:[
             {
@@ -86,6 +92,10 @@ const router = createBrowserRouter([
             {
                 path: "/checkout/",
                 element: <CheckoutPage />
+            },
+            {
+                path:'/cart-modal/',
+                element: <CartModal />
             },
         ],
     },

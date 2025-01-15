@@ -51,7 +51,7 @@ class GameTodayView(APIView):
     # Do not end the endpoint with a "/"
 
     def get(self, request):
-        API_KEY = settings.GAME_STATS_KEY
+        API_KEY = settings.BALL_DONT_LIE_ALLSTAR_KEY
         dates = request.GET.getlist("dates[]")
 
         if not dates:
