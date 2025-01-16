@@ -53,7 +53,7 @@ const UpcomingTripsDisplayed = () => {
           ))}
         </div>
       ) : (
-        <p>No upcoming trips planned</p>
+        <p className="self-center text-3xl text-white">No upcoming trips planned</p>
       )}
       </div>
       </div>
