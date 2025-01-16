@@ -177,7 +177,7 @@ const MostRecentScores = () => {
               </div>
 
               {/* Prev & Next Buttons */}
-              <div className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10">
+              <div className="absolute top-3/4 left-4 transform -translate-y-1/2 z-10">
                 <button
                   className="btn btn-circle"
                   onClick={goToPrev}
@@ -200,7 +200,7 @@ const MostRecentScores = () => {
                 </button>
               </div>
 
-              <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
+              <div className="absolute top-3/4 right-4 transform -translate-y-1/2 z-10">
                 <button
                   className="btn btn-circle"
                   onClick={goToNext}
